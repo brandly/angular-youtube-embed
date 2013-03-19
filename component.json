@@ -6,7 +6,7 @@
         "angular": "~1.0.5"
     },
      "ignore": [
-	    "tests/*",
+	    "test/*",
 	    "scripts/*",
 	    "config/*"
   	]
