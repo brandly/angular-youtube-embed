@@ -1,0 +1,8 @@
+{
+    "name": "angular-youtube",
+    "version": "1.0.0",
+    "main": "./angular-youtube-player-api.js",
+    "dependencies": {
+        "angular": "~1.0.5"
+    }
+}
