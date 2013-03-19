@@ -4,5 +4,10 @@
     "main": "./angular-youtube-player-api.js",
     "dependencies": {
         "angular": "~1.0.5"
-    }
+    },
+     "ignore": [
+	    "tests/*",
+	    "scripts/*",
+	    "config/*"
+  	]
 }
