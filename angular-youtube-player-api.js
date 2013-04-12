@@ -9,7 +9,7 @@ angular.module('youtube', ['ng']).run(function () {
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     })
-    .service('youtubePlayerApi', function ($window, $rootScope, $log) {
+    .service('youtubePlayerApi', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
         var service = $rootScope.$new(true);
 
         // Youtube callback when API is ready
@@ -51,12 +51,12 @@ angular.module('youtube', ['ng']).run(function () {
         };
 
         return service;
-    })
-    .directive('youtubePlayer', function (youtubePlayerApi) {
+    }])
+    .directive('youtubePlayer', ['youtubePlayerApi', function (youtubePlayerApi) {
         return {
             restrict:'A',
             link:function (scope, element) {
                 youtubePlayerApi.bindVideoPlayer(element[0].id);
             }
         };
-    });
+    }]);
