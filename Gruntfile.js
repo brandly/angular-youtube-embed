@@ -23,6 +23,9 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
+            options: {
+                banner: '/* <%= grunt.file.read("LICENCE-MIT.txt") %> */'
+            },
             build: {
                 files: {
                     'build/angular-youtube-player-api.min.js': [
