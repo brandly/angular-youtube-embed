@@ -29,3 +29,5 @@ myApp.controller('MyCtrl', function ($scope) {
 <!-- Must have an ID -->
 <youtube-player id="best-vid" video-id="theBestVideo"></youtube-player>
 ```
+
+It's that simple. [See it in action.](http://brandly.github.io/angular-youtube/)
