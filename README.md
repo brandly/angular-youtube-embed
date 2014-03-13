@@ -18,13 +18,14 @@ var myApp = angular.module('myApp', ['youtube']);
 
 ```javascript
 // Inside your controller...
-myApp.controller('myCtrl', function ($scope) {
+myApp.controller('MyCtrl', function ($scope) {
   // have a video id
   $scope.theBestVideo = 'sMKoNBRZM1M';
 });
 ```
 
 ```html
-<!-- Use 'youtube-player' as an element or attribute -->
-<youtube-player video-id="theBestVideo"></youtube-player>
+<!-- Use 'youtube-player' as an element or attribute. -->
+<!-- Must have an ID -->
+<youtube-player id="best-vid" video-id="theBestVideo"></youtube-player>
 ```
