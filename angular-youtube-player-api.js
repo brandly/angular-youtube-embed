@@ -8,48 +8,48 @@ angular.module('youtube', ['ng']).run(function () {
     tag.src = "//www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    })
-.service('youtubePlayerApi', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
-    var service = $rootScope.$new(true);
+})
+.service('youtubePlayerApi', ['$window', '$rootScope', function ($window, $rootScope) {
+    var service = {
+        // Frame is ready
+        ready: false,
+
+        // Element id for player
+        playerId: null,
+
+        // Player currently in use
+        player: null,
+
+        // Current video id
+        videoId: null,
+
+        // Size
+        playerHeight: '390',
+        playerWidth: '640',
+
+        createPlayer: function () {
+            return new YT.Player(this.playerId, {
+                height: this.playerHeight,
+                width: this.playerWidth,
+                videoId: this.videoId
+            });
+        },
+        loadPlayer: function () {
+            if (this.ready && this.playerId && this.videoId) {
+                if(this.player) {
+                    this.player.destroy();
+                }
+
+                this.player = this.createPlayer();
+            }
+        }
+    };
 
     // Youtube callback when API is ready
     $window.onYouTubeIframeAPIReady = function () {
-        $log.info('Youtube API is ready');
-        service.$apply(function () {
+        $rootScope.$apply(function () {
             service.ready = true;
         });
-    };
-
-    service.ready = false;
-    service.playerId = null;
-    service.player = null;
-    service.videoId = null;
-    service.playerHeight = '390';
-    service.playerWidth = '640';
-
-    service.bindVideoPlayer = function (elementId) {
-        $log.info('Binding to player ' + elementId);
-        service.playerId = elementId;
-    };
-
-    service.createPlayer = function () {
-        $log.info('Creating a new Youtube player for DOM id ' + this.playerId + ' and video ' + this.videoId);
-        return new YT.Player(this.playerId, {
-            height: this.playerHeight,
-            width: this.playerWidth,
-            videoId: this.videoId
-        });
-    };
-
-    service.loadPlayer = function () {
-        // API ready?
-        if (this.ready && this.playerId && this.videoId) {
-            if(this.player) {
-                this.player.destroy();
-            }
-
-            this.player = this.createPlayer();
-        }
     };
 
     return service;
@@ -62,7 +62,7 @@ angular.module('youtube', ['ng']).run(function () {
         },
         link: function (scope, element, attrs) {
             // Attach to element
-            youtubePlayerApi.bindVideoPlayer(element[0].id);
+            youtubePlayerApi.playerId = element[0].id;
 
             // Allow us to watch 'player.ready'
             scope.player = youtubePlayerApi;
