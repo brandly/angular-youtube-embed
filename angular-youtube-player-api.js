@@ -56,9 +56,28 @@ angular.module('youtube', ['ng']).run(function () {
     }])
     .directive('youtubePlayer', ['youtubePlayerApi', function (youtubePlayerApi) {
         return {
-            restrict:'A',
-            link:function (scope, element) {
+            restrict: 'EA',
+            scope: {
+                videoId: '='
+            },
+            link: function (scope, element, attrs) {
+                // Attach to element
                 youtubePlayerApi.bindVideoPlayer(element[0].id);
+
+                // Allow us to watch 'player.ready'
+                scope.player = youtubePlayerApi;
+                var stopWatchingReady = scope.$watch('player.ready',
+                    function (ready) {
+                        if (ready) {
+                            stopWatchingReady();
+
+                            // Change video, load player
+                            scope.$watch('videoId', function (id) {
+                                youtubePlayerApi.videoId = id;
+                                youtubePlayerApi.loadPlayer();
+                            });
+                        }
+                });
             }
         };
     }]);
