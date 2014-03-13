@@ -1,6 +1,6 @@
 # Angular YouTube
 
-Embed a YouTube player with a simple directive.
+> Embed a YouTube player with a simple directive.
 
 ## Can I use it?
 
