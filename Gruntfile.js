@@ -33,12 +33,27 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        copy: {
+            gh: {
+                expand: true,
+                flatten: true,
+                src: [
+                    'angular-youtube-player-api.js',
+                    'demo/index.html'
+                ],
+                dest: 'gh-pages/'
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
+
+    // Create gh-pages demo
+    grunt.registerTask('gh', ['copy:gh']);
 
     // Default task.
     grunt.registerTask('default', ['uglify']);

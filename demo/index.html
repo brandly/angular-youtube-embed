@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <title>Angular YouTube</title>
+  </head>
+  <body ng-controller="MyCtrl">
+    <!-- Use 'youtube-player' as an element or attribute -->
+    <youtube-player id="best-vid" video-id="theBestVideo"></youtube-player>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="angular-youtube-player-api.js"></script>
+    <script>
+      // Create your app with 'youtube' dependency
+      var myApp = angular.module('myApp', ['youtube']);
+
+      // Inside your controller...
+      myApp.controller('MyCtrl', function ($scope) {
+        // have a video id
+        $scope.theBestVideo = 'sMKoNBRZM1M';
+      });
+    </script>
+  </body>
+</html>
