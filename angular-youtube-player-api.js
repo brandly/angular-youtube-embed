@@ -15,7 +15,9 @@ angular.module('youtube', ['ng']).run(function () {
         // Youtube callback when API is ready
         $window.onYouTubeIframeAPIReady = function () {
             $log.info('Youtube API is ready');
-            service.ready = true;
+            service.$apply(function () {
+                service.ready = true;
+            });
         };
 
         service.ready = false;
