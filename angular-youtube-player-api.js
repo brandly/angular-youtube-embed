@@ -50,6 +50,13 @@ angular.module('youtube', ['ng']).run(function () {
         }
     };
 
+    // YT calls callbacks outside of digest cycle
+    function applyBroadcast (event) {
+        $rootScope.$apply(function () {
+            $rootScope.$broadcast(event);
+        });
+    }
+
     // from YT.PlayerState
     var stateNames = {
         0: 'ended',
@@ -62,14 +69,13 @@ angular.module('youtube', ['ng']).run(function () {
     var eventPrefix = 'youtube.player.';
 
     function onPlayerReady (event) {
-        $rootScope.$broadcast(eventPrefix + 'ready');
+        applyBroadcast(eventPrefix + 'ready');
     }
 
     function onPlayerStateChange (event) {
         var state = stateNames[event.data];
-
         if (typeof state !== undefined) {
-            $rootScope.$broadcast(eventPrefix + state);
+            applyBroadcast(eventPrefix + state);
         }
     }
 
