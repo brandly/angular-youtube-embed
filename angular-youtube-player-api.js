@@ -31,12 +31,17 @@ angular.module('youtube', ['ng']).run(function () {
             return new YT.Player(this.playerId, {
                 height: this.playerHeight,
                 width: this.playerWidth,
-                videoId: this.videoId
+                videoId: this.videoId,
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
             });
         },
+
         loadPlayer: function () {
             if (this.ready && this.playerId && this.videoId) {
-                if(this.player) {
+                if (this.player && typeof this.player.destroy === 'function') {
                     this.player.destroy();
                 }
 
@@ -44,6 +49,29 @@ angular.module('youtube', ['ng']).run(function () {
             }
         }
     };
+
+    // from YT.PlayerState
+    var stateNames = {
+        0: 'ended',
+        1: 'playing',
+        2: 'paused',
+        3: 'buffering',
+        5: 'queued'
+    };
+
+    var eventPrefix = 'youtube.player.';
+
+    function onPlayerReady (event) {
+        $rootScope.$broadcast(eventPrefix + 'ready');
+    }
+
+    function onPlayerStateChange (event) {
+        var state = stateNames[event.data];
+
+        if (typeof state !== undefined) {
+            $rootScope.$broadcast(eventPrefix + state);
+        }
+    }
 
     // Youtube callback when API is ready
     $window.onYouTubeIframeAPIReady = function () {
