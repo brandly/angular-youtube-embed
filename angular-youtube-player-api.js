@@ -9,7 +9,7 @@ angular.module('youtube', ['ng']).run(function () {
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 })
-.service('youtubePlayerApi', ['$window', '$rootScope', function ($window, $rootScope) {
+.service('$youtube', ['$window', '$rootScope', function ($window, $rootScope) {
     var service = {
         // Frame is ready
         ready: false,
@@ -82,7 +82,7 @@ angular.module('youtube', ['ng']).run(function () {
 
     return service;
 }])
-.directive('youtubePlayer', ['youtubePlayerApi', function (youtubePlayerApi) {
+.directive('youtubePlayer', ['$youtube', function ($youtube) {
     return {
         restrict: 'EA',
         scope: {
@@ -90,10 +90,10 @@ angular.module('youtube', ['ng']).run(function () {
         },
         link: function (scope, element, attrs) {
             // Attach to element
-            youtubePlayerApi.playerId = element[0].id;
+            $youtube.playerId = element[0].id;
 
             // Allow us to watch 'player.ready'
-            scope.player = youtubePlayerApi;
+            scope.player = $youtube;
             var stopWatchingReady = scope.$watch('player.ready',
                 function (ready) {
                     if (ready) {
@@ -101,8 +101,8 @@ angular.module('youtube', ['ng']).run(function () {
 
                         // Change video, load player
                         scope.$watch('videoId', function (id) {
-                            youtubePlayerApi.videoId = id;
-                            youtubePlayerApi.loadPlayer();
+                            $youtube.videoId = id;
+                            $youtube.loadPlayer();
                         });
                     }
             });
