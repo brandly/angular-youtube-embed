@@ -60,7 +60,24 @@ myApp.controller('MyCtrl', function ($scope, $youtube) {
 
 A full list of `$youtube.player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
 
-## Testing
+### Utilities
+
+* `$youtube.getIdFromURL`
+* `$youtube.getTimeFromURL`
+
+For example, you could start your video at the URL-specified time.
+
+```javascript
+$scope.$on('youtube.player.ready', function () {
+    var time = $youtube.getTimeFromURL($scope.videoURL);
+    $youtube.player.seekTo(time, true);
+    $youtube.player.playVideo();
+});
+```
+
+### Tests
+
+I should write more of them.
 
 ```shell
 $ npm install
