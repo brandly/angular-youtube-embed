@@ -77,7 +77,8 @@ angular.module('youtube-embed', ['ng']).run(function () {
             var times = url.match(timeRegexp);
 
             if (!times) {
-                return undefined;
+                // zero seconds
+                return 0;
             }
 
             // assume the first
