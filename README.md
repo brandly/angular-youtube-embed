@@ -41,7 +41,7 @@ It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-e
 No problem.
 
 ```javascript
-$scope.theBestVideo = 'sMKoNBRZM1M';
+$scope.theBestVideo = 'https://www.youtube.com/watch?v=sMKoNBRZM1M';
 ```
 
 ```html
