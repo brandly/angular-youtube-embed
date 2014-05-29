@@ -32,6 +32,18 @@ myApp.controller('MyCtrl', function ($scope) {
 
 It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-embed/)
 
+## But I only have a URL.
+
+No problem.
+
+```javascript
+$scope.theBestVideo = 'sMKoNBRZM1M';
+```
+
+```html
+<youtube-video id="best-vid" video-url="theBestVideo"></youtube-video>
+```
+
 ## Is that it?
 
 Not quite!
