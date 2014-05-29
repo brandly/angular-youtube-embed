@@ -1,6 +1,7 @@
 {
-  "name": "angular-youtube-embed",
+  "name": "angular-youtube-mb",
   "version": "0.0.1",
+  "private": true,
   "devDependencies": {
     "gulp": "^3.6.2",
     "gulp-uglify": "^0.3.0",
