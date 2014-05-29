@@ -1,4 +1,4 @@
-# Angular YouTube
+# Angular YouTube Embed
 
 > Embed a YouTube player with a simple directive.
 
@@ -8,12 +8,12 @@ Sure! Let me show you.
 
 ```html
 <!-- Include the file -->
-<script src="angular-youtube-player-api.js"></script>
+<script src="angular-youtube-embed.js"></script>
 ```
 
 ```javascript
-// Create your app with 'youtube' dependency
-var myApp = angular.module('myApp', ['youtube']);
+// Create your app with 'youtube-embed' dependency
+var myApp = angular.module('myApp', ['youtube-embed']);
 ```
 
 ```javascript
@@ -25,12 +25,12 @@ myApp.controller('MyCtrl', function ($scope) {
 ```
 
 ```html
-<!-- Use 'youtube-player' as an element or attribute. -->
+<!-- Use 'youtube-video' as an element or attribute. -->
 <!-- Must have an ID -->
-<youtube-player id="best-vid" video-id="theBestVideo"></youtube-player>
+<youtube-video id="best-vid" video-id="theBestVideo"></youtube-video>
 ```
 
-It's that simple. [See it in action.](http://brandly.github.io/angular-youtube/)
+It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-embed/)
 
 ## Is that it?
 
@@ -59,3 +59,11 @@ myApp.controller('MyCtrl', function ($scope, $youtube) {
 ```
 
 A full list of `$youtube.player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
+
+## Testing
+
+```shell
+$ npm install
+$ bower install
+$ gulp test
+```

@@ -1,0 +1,10 @@
+{
+  "name": "angular-youtube-embed",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "angular": "~1.2.16",
+    "lodash": "~2.4.1",
+    "angular-mocks": "~1.2.16"
+  }
+}

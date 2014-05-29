@@ -1,11 +1,15 @@
 {
-  "name": "angular-youtube",
-  "version": "0.1.0",
+  "name": "angular-youtube-embed",
+  "version": "0.0.1",
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-watch": "~0.3.1",
-    "grunt-karma": "~0.4.3",
-    "grunt-contrib-copy": "^0.5.0"
+    "gulp": "^3.6.2",
+    "gulp-uglify": "^0.3.0",
+    "karma": "^0.12.16",
+    "gulp-karma": "0.0.4",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-coffee-preprocessor": "^0.2.1",
+    "coffee-script": "^1.7.1",
+    "gulp-rename": "^1.2.0"
   }
 }

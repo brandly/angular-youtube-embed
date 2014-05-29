@@ -1,4 +1,4 @@
-angular.module('youtube', ['ng']).run(function () {
+angular.module('youtube-embed', ['ng']).run(function () {
     var tag = document.createElement('script');
     tag.src = "//www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -181,7 +181,7 @@ angular.module('youtube', ['ng']).run(function () {
 
             var stopWatchingReady = scope.$watch(
                 function () {
-                    return $youtube.player.ready
+                    return $youtube.ready
                         // Wait until one of them is defined...
                         && (typeof scope.videoUrl !== 'undefined'
                         ||  typeof scope.videoId !== 'undefined');
