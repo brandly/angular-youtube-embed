@@ -2,6 +2,10 @@
 
 > Embed a YouTube player with a simple directive.
 
+```shell
+$ bower install --save angular-youtube-mb
+```
+
 ## Can I use it?
 
 Sure! Let me show you.
