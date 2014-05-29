@@ -1,6 +1,6 @@
 
 describe 'getIdFromURL', ->
-    $injector = angular.injector([ 'youtube-embed' ])
+    $injector = angular.injector ['youtube-embed']
     getIdFromURL = $injector.get('$youtube').getIdFromURL
 
     it 'should handle regular query strings', ->
