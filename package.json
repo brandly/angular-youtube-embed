@@ -1,6 +1,6 @@
 {
   "name": "angular-youtube-mb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "devDependencies": {
     "gulp": "^3.6.2",
