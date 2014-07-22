@@ -1,9 +1,4 @@
-angular.module('youtube-embed', ['ng']).run(function () {
-    var tag = document.createElement('script');
-    tag.src = "//www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})
+angular.module('youtube-embed', ['ng'])
 .service('$youtube', ['$window', '$rootScope', function ($window, $rootScope) {
     // adapted from http://stackoverflow.com/a/5831191/1614967
     var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
@@ -159,6 +154,14 @@ angular.module('youtube-embed', ['ng']).run(function () {
         }
         service.currentState = state;
     }
+
+    // Inject YouTube's iFrame API
+    (function () {
+        var tag = document.createElement('script');
+        tag.src = "//www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }());
 
     // Youtube callback when API is ready
     $window.onYouTubeIframeAPIReady = function () {
