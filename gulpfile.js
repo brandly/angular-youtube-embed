@@ -2,7 +2,10 @@ var
 gulp = require('gulp'),
 uglify = require('gulp-uglify'),
 karma = require('gulp-karma'),
-rename = require('gulp-rename')
+rename = require('gulp-rename'),
+express = require('express'),
+gutil = require('gulp-util'),
+path = require('path'),
 
 build = 'dist/';
 
@@ -33,4 +36,14 @@ gulp.task('dist', function () {
         .pipe(gulp.dest(build));
 });
 
-gulp.task('default', ['dist', 'test']);
+gulp.task('host', function () {
+    var
+    app = express(),
+    port = 8888;
+    app.use(express.static(path.resolve('src/')));
+    app.listen(port, function() {
+        gutil.log('Listening on', port);
+    });
+});
+
+gulp.task('default', ['dist', 'host', 'test']);
