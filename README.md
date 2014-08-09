@@ -109,13 +109,11 @@ $scope.playerVars = {
 };
 ```
 
-
 ### Tests
 
 I should write more of them.
 
 ```shell
 $ npm install
-$ bower install
-$ gulp test
+$ npm test
 ```

@@ -2,6 +2,10 @@
   "name": "angular-youtube-mb",
   "version": "0.0.3",
   "private": true,
+  "scripts": {
+    "postinstall": "bower install",
+    "test": "gulp test"
+  },
   "devDependencies": {
     "gulp": "^3.6.2",
     "gulp-uglify": "^0.3.0",
