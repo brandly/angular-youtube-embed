@@ -102,11 +102,12 @@ angular.module('youtube-embed', ['ng'])
             return seconds + (minutes * 60);
         },
 
-        createPlayer: function () {
+        createPlayer: function (playerVars) {
             return new YT.Player(this.playerId, {
                 height: this.playerHeight,
                 width: this.playerWidth,
                 videoId: this.videoId,
+                playerVars: playerVars,
                 events: {
                     onReady: onPlayerReady,
                     onStateChange: onPlayerStateChange
@@ -114,13 +115,13 @@ angular.module('youtube-embed', ['ng'])
             });
         },
 
-        loadPlayer: function () {
+        loadPlayer: function (playerVars) {
             if (this.ready && this.playerId && this.videoId) {
                 if (this.player && typeof this.player.destroy === 'function') {
                     this.player.destroy();
                 }
 
-                this.player = this.createPlayer();
+                this.player = this.createPlayer(playerVars);
             }
         }
     };
@@ -177,7 +178,8 @@ angular.module('youtube-embed', ['ng'])
         restrict: 'EA',
         scope: {
             videoId: '=',
-            videoUrl: '='
+            videoUrl: '=',
+            playerVars: '='
         },
         link: function (scope, element, attrs) {
             // Attach to element
@@ -198,14 +200,14 @@ angular.module('youtube-embed', ['ng'])
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 $youtube.setURL(url);
-                                $youtube.loadPlayer();
+                                $youtube.loadPlayer(scope.playerVars);
                             });
 
                         // otherwise, watch the id
                         } else {
                             scope.$watch('videoId', function (id) {
                                 $youtube.videoId = id;
-                                $youtube.loadPlayer();
+                                $youtube.loadPlayer(scope.playerVars);
                             });
                         }
                     }

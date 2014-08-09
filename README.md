@@ -91,6 +91,25 @@ $scope.$on('youtube.player.ready', function () {
 });
 ```
 
+### Player Parameters
+
+YouTube's embedded player can take a number of optional parameters. You can find [a full list here](https://developers.google.com/youtube/player_parameters#Parameters).
+
+For example, you could hide the player's controls. Add `player-vars` to your embedded player.
+
+```html
+<youtube-video id="best-vid" video-id="theBestVideo" player-vars="playerVars"></youtube-video>
+```
+
+And define `playerVars` in your controller.
+
+```javascript
+$scope.playerVars = {
+    controls: 0
+};
+```
+
+
 ### Tests
 
 I should write more of them.
