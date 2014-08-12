@@ -22,8 +22,8 @@ angular.module('youtube-embed', ['ng'])
         videoId: null,
 
         // Size
-        playerHeight: '390',
-        playerWidth: '640',
+        playerHeight: null,
+        playerWidth: null,
 
         currentState: null,
 
@@ -179,11 +179,15 @@ angular.module('youtube-embed', ['ng'])
         scope: {
             videoId: '=',
             videoUrl: '=',
-            playerVars: '='
+            playerVars: '=',
+            playerHeight: '=',
+            playerWidth: '='
         },
         link: function (scope, element, attrs) {
             // Attach to element
             $youtube.playerId = element[0].id;
+            $youtube.playerHeight = scope.playerHeight || 390;
+            $youtube.playerWidth = scope.playerWidth || 640;
 
             var stopWatchingReady = scope.$watch(
                 function () {
