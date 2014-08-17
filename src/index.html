@@ -6,18 +6,10 @@
   <body ng-controller="MyCtrl">
     <!-- Use 'youtube-video' as an element or attribute -->
     <youtube-video id="best-vid" video-id="theBestVideo"></youtube-video>
+    <youtube-video id="good-vid" video-url="anotherGoodOne"></youtube-video>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
     <script src="angular-youtube-embed.js"></script>
-    <script>
-      // Create your app with 'youtube-embed' dependency
-      var myApp = angular.module('myApp', ['youtube-embed']);
-
-      // Inside your controller...
-      myApp.controller('MyCtrl', function ($scope) {
-        // have a video id
-        $scope.theBestVideo = 'sMKoNBRZM1M';
-      });
-    </script>
+    <script src="demo.js"></script>
   </body>
 </html>
