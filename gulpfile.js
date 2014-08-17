@@ -46,4 +46,4 @@ gulp.task('host', function () {
     });
 });
 
-gulp.task('default', ['dist', 'host', 'test']);
+gulp.task('default', ['dist', 'host']);

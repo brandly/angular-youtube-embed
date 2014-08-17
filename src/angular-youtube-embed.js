@@ -1,7 +1,7 @@
 /* global YT */
-angular.module('youtube-embed', ['ng'])
-.directive('youtubeVideo', ['$rootScope', '$window', function ($rootScope, $window) {
-    var uniqId = 1;
+angular.module('youtube-embed', [])
+.service ('youtubeEmbedUtils', ['$window', '$rootScope', function ($window, $rootScope) {
+    var Service = {}
 
     // adapted from http://stackoverflow.com/a/5831191/1614967
     var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
@@ -11,19 +11,7 @@ angular.module('youtube-embed', ['ng'])
         return (str.indexOf(substr) > -1);
     }
 
-    // from YT.PlayerState
-    var stateNames = {
-        '-1': 'unstarted',
-        0: 'ended',
-        1: 'playing',
-        2: 'paused',
-        3: 'buffering',
-        5: 'queued'
-    };
-
-    var eventPrefix = 'youtube.player.';
-
-    function getIdFromURL(url) {
+    Service.getIdFromURL = function getIdFromURL(url) {
         var id = url.replace(youtubeRegexp, '$1');
 
         if (contains(id, ';')) {
@@ -50,9 +38,9 @@ angular.module('youtube-embed', ['ng'])
         }
 
         return id;
-    }
+    };
 
-    function getTimeFromURL(url) {
+    Service.getTimeFromURL = function getTimeFromURL(url) {
         url = url || '';
 
         // t=4m20s
@@ -92,7 +80,7 @@ angular.module('youtube-embed', ['ng'])
 
         // in seconds
         return seconds + (minutes * 60);
-    }
+    };
 
     // Inject YouTube's iFrame API
     (function () {
@@ -102,22 +90,31 @@ angular.module('youtube-embed', ['ng'])
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }());
 
-    var needsDelay = true;
-    var playerCallbacks = [];
+    Service.ready = false;
 
     // Youtube callback when API is ready
     $window.onYouTubeIframeAPIReady = function () {
         $rootScope.$apply(function () {
-            // we only get one callback thanks to weird YouTube-ness,
-            // so if a directive's link fn is processed before this CB,
-            // then it gets queued and when execute it now. Otherwise,
-            // we tell future directives to not wait.
-            angular.forEach(playerCallbacks, function (playerCallback) {
-                playerCallback();
-            });
-            needsDelay = false;
+            Service.ready = true;
         });
     };
+
+    return Service
+}])
+.directive('youtubeVideo', ['youtubeEmbedUtils', function (youtubeEmbedUtils) {
+    var uniqId = 1;
+
+    // from YT.PlayerState
+    var stateNames = {
+        '-1': 'unstarted',
+        0: 'ended',
+        1: 'playing',
+        2: 'paused',
+        3: 'buffering',
+        5: 'queued'
+    };
+
+    var eventPrefix = 'youtube.player.';
 
     return {
         restrict: 'EA',
@@ -130,6 +127,9 @@ angular.module('youtube-embed', ['ng'])
             playerWidth: '=?',
         },
         link: function (scope, element, attrs) {
+            // allows us to $watch `ready`
+            scope.utils = youtubeEmbedUtils;
+
             // player-id attr > id attr > directive-generated ID
             var playerId = attrs.playerId || element[0].id || 'unique-youtube-embed-id-' + uniqId++;
             element[0].id = playerId;
@@ -140,32 +140,31 @@ angular.module('youtube-embed', ['ng'])
             if (!scope.playerVars) scope.playerVars = {};
 
             // YT calls callbacks outside of digest cycle
-            var applyBroadcast = function () {
+            function applyBroadcast () {
                 var args = Array.prototype.slice.call(arguments);
                 scope.$apply(function () {
                     scope.$emit.apply(scope, args);
                 });
-            };
+            }
 
-            var onPlayerStateChange = function (event) {
+            function onPlayerStateChange (event) {
                 var state = stateNames[event.data];
                 if (typeof state !== 'undefined') {
                     applyBroadcast(eventPrefix + state, scope.player, event);
-                } else {
                 }
                 scope.player.currentState = state;
-            };
+            }
 
-            var onPlayerReady = function (event) {
+            function onPlayerReady (event) {
                 if (scope.start) {
                     // scope.player.seekTo(parseInt(scope.start, 10), true);
                 }
 
                 applyBroadcast(eventPrefix + 'ready', scope.player, event);
-            };
+            }
 
-            var createPlayer = function () {
-                var p = new YT.Player(playerId, {
+            function createPlayer () {
+                var player = new YT.Player(playerId, {
                     height: scope.playerHeight,
                     width: scope.playerWidth,
                     videoId: scope.videoId,
@@ -176,11 +175,11 @@ angular.module('youtube-embed', ['ng'])
                     }
                 });
 
-                p.id = playerId;
-                return p;
-            };
+                player.id = playerId;
+                return player;
+            }
 
-            var loadPlayer = function () {
+            function loadPlayer () {
                 if (playerId && scope.videoId) {
                     if (scope.player && typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
@@ -190,33 +189,37 @@ angular.module('youtube-embed', ['ng'])
                 }
             };
 
-            var setUpPlayer = function () {
-                // use URL if you've got it
-                if (typeof scope.videoUrl !== 'undefined') {
-                    scope.$watch('videoUrl', function (url) {
-                        scope.videoId = getIdFromURL(url);
+            var stopWatchingReady = scope.$watch(
+                function () {
+                    return scope.utils.ready
+                        // Wait until one of them is defined...
+                        && (typeof scope.videoUrl !== 'undefined'
+                        ||  typeof scope.videoId !== 'undefined');
+                },
+                function (ready) {
+                    if (ready) {
+                        stopWatchingReady();
 
-                        var start = getTimeFromURL(url);
-                        scope.playerVars.start = scope.playerVars.start || start;
+                        // use URL if you've got it
+                        if (typeof scope.videoUrl !== 'undefined') {
+                            scope.$watch('videoUrl', function (url) {
+                                scope.videoId = scope.utils.getIdFromURL(url);
 
-                        loadPlayer();
-                    });
+                                var start = scope.utils.getTimeFromURL(url);
+                                scope.playerVars.start = scope.playerVars.start || start;
 
-                // otherwise, watch the id
-                } else {
-                    scope.$watch('videoId', function (id) {
-                        scope.videoId = id;
-                        loadPlayer();
-                    });
-                }
-            };
+                                loadPlayer();
+                            });
 
-            if (needsDelay) {
-                playerCallbacks.push(setUpPlayer);
-            } else {
-                // scope.$apply(setUpPlayer);
-                setUpPlayer();
-            }
+                        // otherwise, watch the id
+                        } else {
+                            scope.$watch('videoId', function (id) {
+                                scope.videoId = id;
+                                loadPlayer();
+                            });
+                        }
+                    }
+            });
         }
     };
 }]);
