@@ -3,13 +3,12 @@
   <head>
     <title>Angular YouTube</title>
   </head>
-  <body ng-controller="MyCtrl">
-    <!-- Use 'youtube-video' as an element or attribute -->
-    <youtube-video id="best-vid" video-id="theBestVideo"></youtube-video>
-    <youtube-video id="good-vid" video-url="anotherGoodOne"></youtube-video>
+  <body>
+    <div ng-view></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
     <script src="angular-youtube-embed.js"></script>
-    <script src="demo.js"></script>
+    <script src="demo/the.js"></script>
   </body>
 </html>
