@@ -2,13 +2,19 @@
   "name": "angular-youtube-mb",
   "version": "0.0.4",
   "description": "Embed a YouTube player with a simple directive",
-  "keywords": ["angular", "youtube", "embed", "player", "directive"],
+  "keywords": [
+    "angular",
+    "youtube",
+    "embed",
+    "player",
+    "directive"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/brandly/angular-youtube-embed",
   "main": "src/angular-youtube-embed.js",
   "devDependencies": {
-    "angular": "~1.2.16",
+    "angular": "~1.2.22",
     "lodash": "~2.4.1",
-    "angular-mocks": "~1.2.16"
+    "angular-mocks": "~1.2.22"
   }
 }
