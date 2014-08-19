@@ -30,8 +30,15 @@ myApp.controller('TheCtrl', function ($scope) {
 });
 
 myApp.controller('AdvancedCtrl', function ($scope) {
-    $scope.selfPlayingVideo = 'sMKoNBRZM1M';
-    $scope.selfPlayingVars = {
-        autoplay: 1
+    $scope.selfPlaying = {
+        video: 'sMKoNBRZM1M',
+        vars: {
+            autoplay: 1
+        }
+    };
+
+    $scope.specifiedTime = {
+        url: 'https://www.youtube.com/watch?v=UIFDwgczyA4#t=10s',
+        player: null
     };
 });

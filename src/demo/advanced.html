@@ -1,3 +1,9 @@
 <div>
-  <youtube-video video-id="selfPlayingVideo"></youtube-video>
+  <h2>automatically start video</h2>
+  <youtube-video video-id="selfPlaying.video" player-vars="selfPlaying.vars"></youtube-video>
+</div>
+<div>
+  <h2>start at a specified time</h2>
+  <youtube-video video-url="specifiedTime.url" player="specifiedTime.player"></youtube-video>
+  <p>and check out the player's state: <span ng-bind="specifiedTime.player.currentState"></span></p>
 </div>
