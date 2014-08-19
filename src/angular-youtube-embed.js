@@ -1,5 +1,5 @@
 /* global YT */
-angular.module('youtube-embed', [])
+angular.module('youtube-embed', ['ng'])
 .service ('youtubeEmbedUtils', ['$window', '$rootScope', function ($window, $rootScope) {
     var Service = {}
 
@@ -99,7 +99,7 @@ angular.module('youtube-embed', [])
         });
     };
 
-    return Service
+    return Service;
 }])
 .directive('youtubeVideo', ['youtubeEmbedUtils', function (youtubeEmbedUtils) {
     var uniqId = 1;
@@ -124,7 +124,7 @@ angular.module('youtube-embed', [])
             player: '=?',
             playerVars: '=?',
             playerHeight: '=?',
-            playerWidth: '=?',
+            playerWidth: '=?'
         },
         link: function (scope, element, attrs) {
             // allows us to $watch `ready`
@@ -137,7 +137,7 @@ angular.module('youtube-embed', [])
             // Attach to element
             scope.playerHeight = scope.playerHeight || 390;
             scope.playerWidth = scope.playerWidth || 640;
-            if (!scope.playerVars) scope.playerVars = {};
+            scope.playerVars = scope.playerVars || {};
 
             // YT calls callbacks outside of digest cycle
             function applyBroadcast () {
@@ -152,14 +152,12 @@ angular.module('youtube-embed', [])
                 if (typeof state !== 'undefined') {
                     applyBroadcast(eventPrefix + state, scope.player, event);
                 }
-                scope.player.currentState = state;
+                scope.$apply(function () {
+                    scope.player.currentState = state;
+                });
             }
 
             function onPlayerReady (event) {
-                if (scope.start) {
-                    // scope.player.seekTo(parseInt(scope.start, 10), true);
-                }
-
                 applyBroadcast(eventPrefix + 'ready', scope.player, event);
             }
 
@@ -214,7 +212,6 @@ angular.module('youtube-embed', [])
                         // otherwise, watch the id
                         } else {
                             scope.$watch('videoId', function (id) {
-                                scope.videoId = id;
                                 loadPlayer();
                             });
                         }
