@@ -38,7 +38,7 @@ myApp.controller('AdvancedCtrl', function ($scope) {
     };
 
     $scope.specifiedTime = {
-        url: 'https://www.youtube.com/watch?v=UIFDwgczyA4#t=10s',
+        url: 'https://www.youtube.com/watch?v=Im4TO03CuF8#t=10s',
         player: null
     };
 
@@ -52,4 +52,12 @@ myApp.controller('AdvancedCtrl', function ($scope) {
             player.playVideo();
         }
     });
+
+    $scope.custom = {
+        video: 'FGXDKrUoVrw',
+        player: null,
+        vars: {
+            controls: 0
+        }
+    }
 });
