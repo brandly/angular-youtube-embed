@@ -1,9 +1,3 @@
-// TODO: write a small app with a couple routes, to display
-//    * routing capabilities
-//    * video id
-//    * video url
-//    * various player options
-
 // Create your app with 'youtube-embed' dependency
 var myApp = angular.module('myApp', ['youtube-embed', 'ngRoute']);
 
