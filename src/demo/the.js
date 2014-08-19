@@ -31,7 +31,7 @@ myApp.controller('TheCtrl', function ($scope) {
 
 myApp.controller('AdvancedCtrl', function ($scope) {
     $scope.selfPlaying = {
-        video: 'sMKoNBRZM1M',
+        video: 'tyubEwigfUY',
         vars: {
             autoplay: 1
         }
@@ -41,4 +41,15 @@ myApp.controller('AdvancedCtrl', function ($scope) {
         url: 'https://www.youtube.com/watch?v=UIFDwgczyA4#t=10s',
         player: null
     };
+
+    $scope.looper = {
+        video: 'u2-ZGCoKh-I',
+        player: null
+    }
+
+    $scope.$on('youtube.player.ended', function ($event, player) {
+        if (player === $scope.looper.player) {
+            player.playVideo();
+        }
+    });
 });
