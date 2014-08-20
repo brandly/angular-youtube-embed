@@ -90,7 +90,7 @@ myApp.controller('MyCtrl', function ($scope, youtubeEmbedUtils) {
   // 'VvTvtIeXJ1I'
   console.log(youtubeEmbedUtils.getIdFromURL('https://www.youtube.com/watch?v=VvTvtIeXJ1I'));
 });
-``
+```
 
 `getIdFromURL` is covered with [some tests](https://github.com/brandly/angular-youtube-embed/blob/master/test/unit/get-id-from-url.coffee), but [let me know](https://github.com/brandly/angular-youtube-embed/issues/new) if you find any URLs it doesn't support.
 
