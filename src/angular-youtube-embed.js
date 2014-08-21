@@ -158,8 +158,16 @@ angular.module('youtube-embed', ['ng'])
 
     // Inject YouTube's iFrame API
     (function () {
+        var validProtocols = ['http:', 'https:'];
+        var url = '//www.youtube.com/iframe_api';
+
+        // We'd prefer a protocol relative url, but let's
+        // fallback to `http:` for invalid protocols
+        if (validProtocols.indexOf(window.location.protocol) < 0) {
+            url = 'http:' + url;
+        }
         var tag = document.createElement('script');
-        tag.src = "//www.youtube.com/iframe_api";
+        tag.src = url;
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }());
