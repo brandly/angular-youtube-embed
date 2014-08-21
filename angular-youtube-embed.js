@@ -1,9 +1,4 @@
-angular.module('youtube-embed', ['ng']).run(function () {
-    var tag = document.createElement('script');
-    tag.src = "//www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})
+angular.module('youtube-embed', ['ng'])
 .service('$youtube', ['$window', '$rootScope', function ($window, $rootScope) {
     // adapted from http://stackoverflow.com/a/5831191/1614967
     var youtubeRegexp = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
@@ -27,8 +22,8 @@ angular.module('youtube-embed', ['ng']).run(function () {
         videoId: null,
 
         // Size
-        playerHeight: '390',
-        playerWidth: '640',
+        playerHeight: null,
+        playerWidth: null,
 
         currentState: null,
 
@@ -107,11 +102,12 @@ angular.module('youtube-embed', ['ng']).run(function () {
             return seconds + (minutes * 60);
         },
 
-        createPlayer: function () {
+        createPlayer: function (playerVars) {
             return new YT.Player(this.playerId, {
                 height: this.playerHeight,
                 width: this.playerWidth,
                 videoId: this.videoId,
+                playerVars: playerVars,
                 events: {
                     onReady: onPlayerReady,
                     onStateChange: onPlayerStateChange
@@ -119,13 +115,13 @@ angular.module('youtube-embed', ['ng']).run(function () {
             });
         },
 
-        loadPlayer: function () {
+        loadPlayer: function (playerVars) {
             if (this.ready && this.playerId && this.videoId) {
                 if (this.player && typeof this.player.destroy === 'function') {
                     this.player.destroy();
                 }
 
-                this.player = this.createPlayer();
+                this.player = this.createPlayer(playerVars);
             }
         }
     };
@@ -160,6 +156,22 @@ angular.module('youtube-embed', ['ng']).run(function () {
         service.currentState = state;
     }
 
+    // Inject YouTube's iFrame API
+    (function () {
+        var validProtocols = ['http:', 'https:'];
+        var url = '//www.youtube.com/iframe_api';
+
+        // We'd prefer a protocol relative url, but let's
+        // fallback to `http:` for invalid protocols
+        if (validProtocols.indexOf(window.location.protocol) < 0) {
+            url = 'http:' + url;
+        }
+        var tag = document.createElement('script');
+        tag.src = url;
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }());
+
     // Youtube callback when API is ready
     $window.onYouTubeIframeAPIReady = function () {
         $rootScope.$apply(function () {
@@ -174,11 +186,16 @@ angular.module('youtube-embed', ['ng']).run(function () {
         restrict: 'EA',
         scope: {
             videoId: '=',
-            videoUrl: '='
+            videoUrl: '=',
+            playerVars: '=',
+            playerHeight: '=',
+            playerWidth: '='
         },
         link: function (scope, element, attrs) {
             // Attach to element
             $youtube.playerId = element[0].id;
+            $youtube.playerHeight = scope.playerHeight || 390;
+            $youtube.playerWidth = scope.playerWidth || 640;
 
             var stopWatchingReady = scope.$watch(
                 function () {
@@ -195,14 +212,14 @@ angular.module('youtube-embed', ['ng']).run(function () {
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 $youtube.setURL(url);
-                                $youtube.loadPlayer();
+                                $youtube.loadPlayer(scope.playerVars);
                             });
 
                         // otherwise, watch the id
                         } else {
                             scope.$watch('videoId', function (id) {
                                 $youtube.videoId = id;
-                                $youtube.loadPlayer();
+                                $youtube.loadPlayer(scope.playerVars);
                             });
                         }
                     }
