@@ -113,11 +113,32 @@ $scope.playerVars = {
 };
 ```
 
-### Tests
+Check out [the demo](http://brandly.github.io/angular-youtube-embed) and [the code behind it](https://github.com/brandly/angular-youtube-embed/blob/master/src/demo/the.js).
 
-I should write more of them.
+### Development
 
+First, make sure you have the necessary dependencies installed locally and [gulp](http://gulpjs.com/) installed globally
 ```shell
 $ npm install
-$ npm test
+$ npm install --global gulp
+```
+
+To build a minfied version to `dist/`
+```shell
+$ gulp dist
+```
+
+To host the demo on a local server
+```shell
+$ gulp host
+```
+
+To run a couple tests
+```shell
+$ gulp test
+```
+
+And if you want to do all the aforementioned tasks
+```shell
+$ gulp
 ```
