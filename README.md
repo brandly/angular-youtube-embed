@@ -41,11 +41,11 @@ It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-e
 No problem.
 
 ```javascript
-$scope.theBestVideo = 'https://www.youtube.com/watch?v=sMKoNBRZM1M';
+$scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 ```
 
 ```html
-<youtube-video id="best-vid" video-url="theBestVideo"></youtube-video>
+<youtube-video id="good-vid" video-url="anotherGoodOne"></youtube-video>
 ```
 
 ## Is that it?
@@ -61,15 +61,15 @@ Not quite!
 * `youtube.player.buffering`
 * `youtube.player.queued`
 
-Events allow you to keep an eye on the state of things from your controller. For example, let's say you want to automatically play the best video.
+Events allow you to keep an eye on the state of things from your controller. For example, if you wanted to a watch a video over and over again forever
 
 ```javascript
-// Inject '$youtube' dependency
-myApp.controller('MyCtrl', function ($scope, $youtube) {
-  $scope.theBestVideo = 'sMKoNBRZM1M';
+myApp.controller('MyCtrl', function ($scope) {
+  $scope.looper = 'VvTvtIeXJ1I';
 
-  $scope.$on('youtube.player.ready', function () {
-    $youtube.player.playVideo();
+  $scope.$on('youtube.player.ended', function ($event, player) {
+    // play it again
+    player.playVideo();
   });
 });
 ```
@@ -78,24 +78,27 @@ A full list of `$youtube.player` methods can be found [here](https://developers.
 
 ### Utilities
 
-* `$youtube.getIdFromURL`
-* `$youtube.getTimeFromURL`
+These might be handy.
 
-For example, you could start your video at the URL-specified time.
+* `youtubeEmbedUtils.getIdFromURL`
+* `youtubeEmbedUtils.getTimeFromURL`
+
+Just inject the service into your controller
 
 ```javascript
-$scope.$on('youtube.player.ready', function () {
-    var time = $youtube.getTimeFromURL($scope.videoURL);
-    $youtube.player.seekTo(time, true);
-    $youtube.player.playVideo();
+myApp.controller('MyCtrl', function ($scope, youtubeEmbedUtils) {
+  // 'VvTvtIeXJ1I'
+  console.log(youtubeEmbedUtils.getIdFromURL('https://www.youtube.com/watch?v=VvTvtIeXJ1I'));
 });
 ```
+
+`getIdFromURL` is covered with [some tests](https://github.com/brandly/angular-youtube-embed/blob/master/test/unit/get-id-from-url.coffee), but [let me know](https://github.com/brandly/angular-youtube-embed/issues/new) if you find any URLs it doesn't support.
 
 ### Player Parameters
 
 YouTube's embedded player can take a number of optional parameters. You can find [a full list here](https://developers.google.com/youtube/player_parameters#Parameters).
 
-For example, you could hide the player's controls. Add `player-vars` to your embedded player.
+For example, you could hide the player's controls and have it start automatically. Add `player-vars` to your embedded player.
 
 ```html
 <youtube-video id="best-vid" video-id="theBestVideo" player-vars="playerVars"></youtube-video>
@@ -105,7 +108,8 @@ And define `playerVars` in your controller.
 
 ```javascript
 $scope.playerVars = {
-    controls: 0
+    controls: 0,
+    autoplay: 1
 };
 ```
 

@@ -1,0 +1,21 @@
+<div>
+  <h2>automatically start video</h2>
+  <youtube-video video-id="selfPlaying.video" player-vars="selfPlaying.vars"></youtube-video>
+</div>
+<div>
+  <h2>start at a specified time</h2>
+  <youtube-video video-url="specifiedTime.url" player="specifiedTime.player"></youtube-video>
+  <p>and check out the player's state: <span ng-bind="specifiedTime.player.currentState"></span></p>
+</div>
+<div>
+  <h3>loop a video</h3>
+  <youtube-video video-id="looper.video" player="looper.player"></youtube-video>
+</div>
+<div>
+  <h3>custom controls</h3>
+  <div class="controls">
+    <button ng-click="custom.player.playVideo()">play</button>
+    <button ng-click="custom.player.pauseVideo()">pause</button>
+  </div>
+  <youtube-video video-id="custom.video" player="custom.player" player-vars="custom.vars"></youtube-video>
+</div>
