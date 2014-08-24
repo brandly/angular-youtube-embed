@@ -74,7 +74,7 @@ myApp.controller('MyCtrl', function ($scope) {
 });
 ```
 
-A full list of `$youtube.player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
+A full list of `player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
 
 ### Utilities
 
