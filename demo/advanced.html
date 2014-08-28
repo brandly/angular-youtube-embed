@@ -19,3 +19,10 @@
   </div>
   <youtube-video video-id="custom.video" player="custom.player" player-vars="custom.vars"></youtube-video>
 </div>
+<div>
+  <h3>toggle ng-if</h3>
+  <div class="control">
+    <button ng-click="conditional.toggle()">toggle</button>
+  </div>
+  <youtube-video ng-if="conditional.visible" video-id="conditional.video"></youtube-video>
+</div>

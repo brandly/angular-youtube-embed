@@ -39,7 +39,7 @@ myApp.controller('AdvancedCtrl', function ($scope) {
     $scope.looper = {
         video: 'u2-ZGCoKh-I',
         player: null
-    }
+    };
 
     $scope.$on('youtube.player.ended', function ($event, player) {
         if (player === $scope.looper.player) {
@@ -53,5 +53,13 @@ myApp.controller('AdvancedCtrl', function ($scope) {
         vars: {
             controls: 0
         }
-    }
+    };
+
+    $scope.conditional = {
+        video: '-m-vVKHideI',
+        visible: true,
+        toggle: function () {
+            this.visible = !this.visible;
+        }
+    };
 });

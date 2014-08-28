@@ -225,6 +225,10 @@ angular.module('youtube-embed', ['ng'])
                         }
                     }
             });
+
+            scope.$on('$destroy', function () {
+                scope.player && scope.player.destroy();
+            });
         }
     };
 }]);
