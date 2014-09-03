@@ -170,11 +170,13 @@ angular.module('youtube-embed', ['ng'])
             }
 
             function createPlayer () {
+                var playerVars = angular.copy(scope.playerVars);
+                playerVars.start = playerVars.start || scope.urlStartTime;
                 var player = new YT.Player(playerId, {
                     height: scope.playerHeight,
                     width: scope.playerWidth,
                     videoId: scope.videoId,
-                    playerVars: scope.playerVars,
+                    playerVars: playerVars,
                     events: {
                         onReady: onPlayerReady,
                         onStateChange: onPlayerStateChange
@@ -210,9 +212,7 @@ angular.module('youtube-embed', ['ng'])
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
-
-                                var start = scope.utils.getTimeFromURL(url);
-                                scope.playerVars.start = scope.playerVars.start || start;
+                                scope.urlStartTime = scope.utils.getTimeFromURL(url);
 
                                 loadPlayer();
                             });
@@ -220,6 +220,7 @@ angular.module('youtube-embed', ['ng'])
                         // otherwise, watch the id
                         } else {
                             scope.$watch('videoId', function (id) {
+                                scope.urlStartTime = null;
                                 loadPlayer();
                             });
                         }
