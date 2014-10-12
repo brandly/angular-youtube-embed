@@ -112,6 +112,16 @@ $scope.playerVars = {
 };
 ```
 
+### Player Size
+
+You can set both `player-width` and `player-height` on the element.
+
+```html
+<youtube-video video-id="theBestVideo" player-width="'100%'" player-height="'300px'"></youtube-video>
+```
+
+Both values are treated as expressions, which is why the inner single-quotes are need.
+
 Check out [the demo](http://brandly.github.io/angular-youtube-embed) and [the code behind it](https://github.com/brandly/angular-youtube-embed/blob/master/src/demo/the.js).
 
 ### Development
