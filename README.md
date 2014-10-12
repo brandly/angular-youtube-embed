@@ -30,8 +30,7 @@ myApp.controller('MyCtrl', function ($scope) {
 
 ```html
 <!-- Use 'youtube-video' as an element or attribute. -->
-<!-- Must have an ID -->
-<youtube-video id="best-vid" video-id="theBestVideo"></youtube-video>
+<youtube-video video-id="theBestVideo"></youtube-video>
 ```
 
 It's that simple. [See it in action.](http://brandly.github.io/angular-youtube-embed/)
@@ -45,7 +44,7 @@ $scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 ```
 
 ```html
-<youtube-video id="good-vid" video-url="anotherGoodOne"></youtube-video>
+<youtube-video video-url="anotherGoodOne"></youtube-video>
 ```
 
 ## Is that it?
@@ -101,7 +100,7 @@ YouTube's embedded player can take a number of optional parameters. You can find
 For example, you could hide the player's controls and have it start automatically. Add `player-vars` to your embedded player.
 
 ```html
-<youtube-video id="best-vid" video-id="theBestVideo" player-vars="playerVars"></youtube-video>
+<youtube-video video-id="theBestVideo" player-vars="playerVars"></youtube-video>
 ```
 
 And define `playerVars` in your controller.
