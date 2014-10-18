@@ -183,6 +183,14 @@ angular.module('youtube-embed', ['ng'])
                     }
                 });
 
+                scope.$watchCollection(
+                    ['playerHeight', 'playerWidth'],
+                    function(newValues, oldValues) {
+                    if ( newValues !== oldValues ) {
+                        player.setSize(scope.playerWidth, scope.playerHeight);
+                    }
+                });
+
                 player.id = playerId;
                 return player;
             }
