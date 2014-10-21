@@ -112,6 +112,8 @@ $scope.playerVars = {
 };
 ```
 
+Note: `autoplay` won't work on mobile devices.
+
 ### Player Size
 
 You can set both `player-width` and `player-height` on the element.
