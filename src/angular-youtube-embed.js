@@ -183,14 +183,6 @@ angular.module('youtube-embed', ['ng'])
                     }
                 });
 
-                scope.$watchCollection(
-                    ['playerHeight', 'playerWidth'],
-                    function(newValues, oldValues) {
-                    if ( newValues !== oldValues ) {
-                        player.setSize(scope.playerWidth, scope.playerHeight);
-                    }
-                });
-
                 player.id = playerId;
                 return player;
             }
@@ -234,6 +226,12 @@ angular.module('youtube-embed', ['ng'])
                             });
                         }
                     }
+            });
+
+            scope.$watchCollection(['playerHeight', 'playerWidth'], function() {
+                if (scope.player) {
+                    scope.player.setSize(scope.playerWidth, scope.playerHeight);
+                }
             });
 
             scope.$on('$destroy', function () {
