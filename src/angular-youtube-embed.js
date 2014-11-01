@@ -228,6 +228,12 @@ angular.module('youtube-embed', ['ng'])
                     }
             });
 
+            scope.$watchCollection(['playerHeight', 'playerWidth'], function() {
+                if (scope.player) {
+                    scope.player.setSize(scope.playerWidth, scope.playerHeight);
+                }
+            });
+
             scope.$on('$destroy', function () {
                 scope.player && scope.player.destroy();
             });
