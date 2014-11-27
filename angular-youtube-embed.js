@@ -84,16 +84,8 @@ angular.module('youtube-embed', ['ng'])
 
     // Inject YouTube's iFrame API
     (function () {
-        var validProtocols = ['http:', 'https:'];
-        var url = '//www.youtube.com/iframe_api';
-
-        // We'd prefer a protocol relative url, but let's
-        // fallback to `http:` for invalid protocols
-        if (validProtocols.indexOf(window.location.protocol) < 0) {
-            url = 'http:' + url;
-        }
         var tag = document.createElement('script');
-        tag.src = url;
+        tag.src = 'https://www.youtube.com/iframe_api';
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }());
@@ -188,7 +180,7 @@ angular.module('youtube-embed', ['ng'])
             }
 
             function loadPlayer () {
-                if (playerId && scope.videoId) {
+                if (scope.videoId || scope.playerVars.list) {
                     if (scope.player && scope.player.d &&
                         typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
@@ -203,13 +195,14 @@ angular.module('youtube-embed', ['ng'])
                     return scope.utils.ready
                         // Wait until one of them is defined...
                         && (typeof scope.videoUrl !== 'undefined'
-                        ||  typeof scope.videoId !== 'undefined');
+                        ||  typeof scope.videoId !== 'undefined'
+                        ||  typeof scope.playerVars.list !== 'undefined');
                 },
                 function (ready) {
                     if (ready) {
                         stopWatchingReady();
 
-                        // use URL if you've got it
+                        // URL takes first priority
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
@@ -218,9 +211,16 @@ angular.module('youtube-embed', ['ng'])
                                 loadPlayer();
                             });
 
-                        // otherwise, watch the id
+                        // then, a video ID
+                        } else if (typeof scope.videoId !== 'undefined') {
+                            scope.$watch('videoId', function () {
+                                scope.urlStartTime = null;
+                                loadPlayer();
+                            });
+
+                        // finally, a list
                         } else {
-                            scope.$watch('videoId', function (id) {
+                            scope.$watch('playerVars.list', function () {
                                 scope.urlStartTime = null;
                                 loadPlayer();
                             });

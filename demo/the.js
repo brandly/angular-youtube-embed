@@ -62,4 +62,10 @@ myApp.controller('AdvancedCtrl', function ($scope) {
             this.visible = !this.visible;
         }
     };
+
+    $scope.playlist = {
+        vars: {
+            list: 'PLISo53ifQd_iBPpybJay-SCAULHsoRicc'
+        }
+    };
 });
