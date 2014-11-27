@@ -180,7 +180,7 @@ angular.module('youtube-embed', ['ng'])
             }
 
             function loadPlayer () {
-                if (playerId && scope.videoId) {
+                if (scope.videoId || scope.playerVars.list) {
                     if (scope.player && scope.player.d &&
                         typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
@@ -195,13 +195,14 @@ angular.module('youtube-embed', ['ng'])
                     return scope.utils.ready
                         // Wait until one of them is defined...
                         && (typeof scope.videoUrl !== 'undefined'
-                        ||  typeof scope.videoId !== 'undefined');
+                        ||  typeof scope.videoId !== 'undefined'
+                        ||  typeof scope.playerVars.list !== 'undefined');
                 },
                 function (ready) {
                     if (ready) {
                         stopWatchingReady();
 
-                        // use URL if you've got it
+                        // URL takes first priority
                         if (typeof scope.videoUrl !== 'undefined') {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
@@ -210,9 +211,16 @@ angular.module('youtube-embed', ['ng'])
                                 loadPlayer();
                             });
 
-                        // otherwise, watch the id
+                        // then, a video ID
+                        } else if (typeof scope.videoId !== 'undefined') {
+                            scope.$watch('videoId', function () {
+                                scope.urlStartTime = null;
+                                loadPlayer();
+                            });
+
+                        // finally, a list
                         } else {
-                            scope.$watch('videoId', function (id) {
+                            scope.$watch('playerVars.list', function () {
                                 scope.urlStartTime = null;
                                 loadPlayer();
                             });
