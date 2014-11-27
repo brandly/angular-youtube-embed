@@ -1,6 +1,6 @@
 {
   "name": "angular-youtube-mb",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Embed a YouTube player with a simple directive",
   "keywords": [
     "angular",
