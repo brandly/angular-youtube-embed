@@ -75,6 +75,20 @@ myApp.controller('MyCtrl', function ($scope) {
 
 A full list of `player` methods can be found [here](https://developers.google.com/youtube/iframe_api_reference).
 
+### Player Functions
+
+Add `player` to embedded youtube player to reference Youtube's video player object to use player functions like `playVideo()`, `stopVideo()`:
+
+```html
+<!-- use 'player' to reference player object. -->
+<youtube-video video-id="'sMKoNBRZM1M'" player="bestPlayer"></youtube-video>
+<!-- perform video playback operations -->
+<button ng-click="bestPlayer.playVideo()">Play</button>
+<button ng-click="bestPlayer.stopVideo()">Stop</button>
+```
+
+Note: `playVideo()`, `loadVideoById()` won't work in all mobile environments until user initiates playback.
+
 ### Utilities
 
 These might be handy.
