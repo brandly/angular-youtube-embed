@@ -149,7 +149,6 @@ angular.module('youtube-embed', ['ng'])
 
             function onPlayerStateChange (event) {
                 var state = stateNames[event.data];
-                console.log(state);
                 if (typeof state !== 'undefined') {
                     applyBroadcast(eventPrefix + state, scope.player, event);
                 }
