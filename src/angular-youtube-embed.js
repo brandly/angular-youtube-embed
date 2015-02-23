@@ -161,6 +161,10 @@ angular.module('youtube-embed', ['ng'])
                 applyBroadcast(eventPrefix + 'ready', scope.player, event);
             }
 
+            function onPlayerError (event) {
+                applyBroadcast(eventPrefix + 'error', scope.player, event);
+            }
+
             function createPlayer () {
                 var playerVars = angular.copy(scope.playerVars);
                 playerVars.start = playerVars.start || scope.urlStartTime;
@@ -171,7 +175,8 @@ angular.module('youtube-embed', ['ng'])
                     playerVars: playerVars,
                     events: {
                         onReady: onPlayerReady,
-                        onStateChange: onPlayerStateChange
+                        onStateChange: onPlayerStateChange,
+                        onError: onPlayerError
                     }
                 });
 
