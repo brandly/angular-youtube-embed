@@ -59,6 +59,7 @@ Not quite!
 * `youtube.player.paused`
 * `youtube.player.buffering`
 * `youtube.player.queued`
+* `youtube.player.error`
 
 Events allow you to keep an eye on the state of things from your controller. For example, if you wanted to a watch a video over and over again forever
 
