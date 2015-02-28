@@ -139,6 +139,42 @@ You can set both `player-width` and `player-height` on the element.
 
 Both values are treated as expressions, which is why the inner single-quotes are need.
 
+### Responsive Videos
+
+You'll need to add a few classes to your markup.
+
+```html
+<div class="embed-responsive embed-responsive-16by9">
+  <youtube-video class="embed-responsive-item" video-id="theBestVideo"></youtube-video>
+</div>
+```
+
+I took these classes from [Bootstrap](http://getbootstrap.com/components/#responsive-embed), so you might already have them. If not, here they are:
+
+```css
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.embed-responsive.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+
+.embed-responsive-item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+```
+
 Check out [the demo](http://brandly.github.io/angular-youtube-embed) and [the code behind it](https://github.com/brandly/angular-youtube-embed/blob/master/src/demo/the.js).
 
 ### Development
