@@ -2,21 +2,30 @@
   "name": "angular-youtube-mb",
   "version": "0.1.7",
   "private": true,
+  "author": "Matthew Brandly",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brandly/angular-youtube-embed.git"
+  },
+  "homepage": "http://brandly.github.io/angular-youtube-embed/",
   "scripts": {
     "postinstall": "bower install",
+    "start": "gulp",
     "test": "gulp test"
   },
   "devDependencies": {
-    "gulp": "^3.6.2",
-    "gulp-uglify": "^0.3.0",
-    "karma": "^0.12.16",
-    "gulp-karma": "0.0.4",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-jasmine": "^0.1.5",
-    "karma-coffee-preprocessor": "^0.2.1",
     "coffee-script": "^1.7.1",
-    "gulp-rename": "^1.2.0",
     "express": "^4.8.2",
-    "gulp-util": "^3.0.0"
+    "gulp": "^3.6.2",
+    "gulp-header": "^1.2.2",
+    "gulp-karma": "0.0.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.0",
+    "gulp-util": "^3.0.0",
+    "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coffee-preprocessor": "^0.2.1",
+    "karma-jasmine": "^0.1.5"
   }
 }

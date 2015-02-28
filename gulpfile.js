@@ -3,11 +3,21 @@ gulp = require('gulp'),
 uglify = require('gulp-uglify'),
 karma = require('gulp-karma'),
 rename = require('gulp-rename'),
+header = require('gulp-header'),
 express = require('express'),
 gutil = require('gulp-util'),
 path = require('path'),
+package = require('./bower'),
 
-build = 'dist/';
+build = 'dist/',
+
+banner = [
+  '/*',
+  '  <%= package.name %> v<%= package.version %>',
+  '  <%= package.homepage %>',
+  '*/',
+  ''
+].join('\n');
 
 gulp.task('test', function () {
     return gulp.src([
@@ -33,6 +43,7 @@ gulp.task('dist', function () {
         .pipe(rename(function (path) {
             path.basename += '.min';
         }))
+        .pipe(header(banner, {package: package}))
         .pipe(gulp.dest(build));
 });
 
