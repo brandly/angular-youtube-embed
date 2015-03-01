@@ -107,30 +107,69 @@
       }
 
       .video-wrapper {
-        margin: 2.0rem 0;
+        margin: 4.0rem 0;
+      }
+
+      .video-detail {
+        margin: 1.0rem 2.0rem;
+        border-left: 6px solid #FFACAC;
+        padding: 0.6rem;
+      }
+
+      .controls {
+        margin: 1.0rem 2.0rem;
+      }
+
+      .controls .border-button {
+        font-size: 1.6rem;
+        line-height: 1.6;
+      }
+
+      .play,
+      .pause {
+        width: 49%;
+      }
+
+      .toggle {
+        width: 100%;
+      }
+
+      .pause {
+        float: right;
       }
 
       footer {
         text-align: center;
-        padding-bottom: 4.0rem;
+        padding-bottom: 6.0rem;
+      }
+
+      .border-button {
+        color: #77BCF6;
+        background-color: #FFF;
+        font-family: "Oswald" sans-serif;
+        border: 2px solid #77BCF6;
+        border-radius: 4px;
+        outline: none;
+        text-decoration: none;
+        cursor: pointer;
+
+        transition: box-shadow 300ms;
+      }
+
+      .border-button:hover {
+        box-shadow: 0px 2px 4px rgba(119, 188, 246, 0.5);
+      }
+
+      .border-button:active {
+        transform: translateY(2px);
       }
 
       .view-github {
         display: block;
         margin: 0 1.0rem;
-        color: #77BCF6;
-        font-family: "Oswald" sans-serif;
         font-size: 1.8rem;
         line-height: 1.2;
-        border: 2px solid #77BCF6;
-        border-radius: 4px;
-        text-decoration: none;
         padding: 1.0rem 0.8rem;
-        transition: box-shadow 300ms;
-      }
-
-      .view-github:hover {
-        box-shadow: 0px 2px 4px rgba(119, 188, 246, 0.5);
       }
 
       .view-advanced {
