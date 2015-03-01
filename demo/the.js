@@ -28,12 +28,6 @@ myApp.controller('TheCtrl', function ($scope) {
 });
 
 myApp.controller('AdvancedCtrl', function ($scope) {
-    $scope.selfPlaying = {
-        video: 'tyubEwigfUY',
-        vars: {
-            autoplay: 1
-        }
-    };
 
     $scope.specifiedTime = {
         url: 'https://www.youtube.com/watch?v=Im4TO03CuF8#t=10s',
@@ -61,9 +55,12 @@ myApp.controller('AdvancedCtrl', function ($scope) {
 
     $scope.conditional = {
         video: '-m-vVKHideI',
-        visible: true,
+        visible: false,
         toggle: function () {
             this.visible = !this.visible;
+        },
+        vars: {
+            autoplay: 1
         }
     };
 

@@ -1,17 +1,10 @@
 <div class="container">
   <div class="video-wrapper">
-    <h3>automatically start video</h3>
-    <div class="embed-responsive embed-responsive-16by9">
-      <youtube-video class="embed-responsive-item" video-id="selfPlaying.video" player-vars="selfPlaying.vars"></youtube-video>
-    </div>
-  </div>
-
-  <div class="video-wrapper">
     <h3>start at a specified time</h3>
     <div class="embed-responsive embed-responsive-16by9">
       <youtube-video class="embed-responsive-item" video-url="specifiedTime.url" player="specifiedTime.player"></youtube-video>
     </div>
-    <p>and check out the player's state: <span ng-bind="specifiedTime.player.currentState"></span></p>
+    <p class="video-detail">player's state: <span ng-bind="specifiedTime.player.currentState"></span></p>
   </div>
 
   <div class="video-wrapper">
@@ -27,18 +20,18 @@
       <youtube-video class="embed-responsive-item" video-id="custom.video" player="custom.player" player-vars="custom.vars"></youtube-video>
     </div>
     <div class="controls">
-      <button ng-click="custom.player.playVideo()">play</button>
-      <button ng-click="custom.player.pauseVideo()">pause</button>
+      <button class="border-button play" ng-click="custom.player.playVideo()">play</button>
+      <button class="border-button pause" ng-click="custom.player.pauseVideo()">pause</button>
     </div>
   </div>
 
   <div class="video-wrapper">
     <h3>toggle ng-if</h3>
-    <div class="control">
-      <button ng-click="conditional.toggle()">toggle</button>
-    </div>
     <div class="embed-responsive embed-responsive-16by9">
-      <youtube-video class="embed-responsive-item" ng-if="conditional.visible" video-id="conditional.video"></youtube-video>
+      <youtube-video class="embed-responsive-item" ng-if="conditional.visible" video-id="conditional.video" player-vars="conditional.vars"></youtube-video>
+    </div>
+    <div class="controls">
+      <button class="border-button toggle" ng-click="conditional.toggle()">{{conditional.visible ? 'hide' : 'autoplay'}} video</button>
     </div>
   </div>
 
@@ -50,6 +43,6 @@
   </div>
 
   <footer>
-    <a href="https://github.com/brandly/angular-youtube-embed" class="view-github">View Project on GitHub</a>
+    <a href="https://github.com/brandly/angular-youtube-embed" class="border-button view-github">View Project on GitHub</a>
   </footer>
 </div>
