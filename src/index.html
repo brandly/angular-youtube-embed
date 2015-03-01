@@ -5,10 +5,141 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Angular YouTube</title>
 
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Oswald:400">
+
     <style>
+      /* http://meyerweb.com/eric/tools/css/reset/
+         v2.0 | 20110126
+         License: none (public domain)
+      */
+
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      b, u, i, center,
+      dl, dt, dd, ol, ul, li,
+      fieldset, form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td,
+      article, aside, canvas, details, embed,
+      figure, figcaption, footer, header, hgroup,
+      menu, nav, output, ruby, section, summary,
+      time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article, aside, details, figcaption, figure,
+      footer, header, hgroup, menu, nav, section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol, ul {
+        list-style: none;
+      }
+      blockquote, q {
+        quotes: none;
+      }
+      blockquote:before, blockquote:after,
+      q:before, q:after {
+        content: '';
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+    </style>
+
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        color: #444;
+        font-family: "Arial" sans-serif;
+      }
+
+      header {
+        width: 100%;
+        background-color: #77BCF6;
+        color: #FFF;
+        padding: 2.0rem 0;
+        text-align: center;
+      }
+
+      h1, h2, h3, h4, h5 {
+        font-family: "Oswald" sans-serif;
+      }
+
+      h1 {
+        font-size: 3.0rem;
+        line-height: 1.3;
+        margin: 0.6rem 0;
+      }
+
+      h3 {
+        font-size: 2.0rem;
+        line-height: 1.3;
+        margin: 0.6rem;
+      }
+
+      .shell {
+        font-family: monospace;
+        font-size: 1.2rem;
+      }
+
       .container {
         max-width: 700px;
         margin: 0 auto;
+      }
+
+      .video-wrapper {
+        margin: 2.0rem 0;
+      }
+
+      footer {
+        text-align: center;
+        padding-bottom: 4.0rem;
+      }
+
+      .view-github {
+        display: block;
+        margin: 0 1.0rem;
+        color: #77BCF6;
+        font-family: "Oswald" sans-serif;
+        font-size: 2.0rem;
+        border: 2px solid #77BCF6;
+        border-radius: 4px;
+        text-decoration: none;
+        padding: 1.0rem;
+        transition: box-shadow 300ms;
+      }
+
+      .view-github:hover {
+        box-shadow: 0px 2px 4px rgba(119, 188, 246, 0.5);
+      }
+
+      .view-advanced {
+        display: inline-block;
+        text-decoration: none;
+        color: #444;
+        font-size: 1.2rem;
+        line-height: 1.4;
+        margin-top: 1.0rem;
+      }
+
+      .view-advanced:hover {
+        border-bottom: 2px solid #77BCF6;
       }
 
       .embed-responsive {
@@ -32,9 +163,23 @@
         height: 100%;
         border: 0;
       }
+
+      ::selection {
+        background: #FFACAC;
+      }
+      ::-moz-selection {
+        background: #FFACAC;
+      }
     </style>
   </head>
   <body>
+    <header>
+      <div class="container">
+        <h1>Angular YouTube Embed</h1>
+        <p>Embed a YouTube player with a simple directive</p>
+      </div>
+    </header>
+
     <div ng-view></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>

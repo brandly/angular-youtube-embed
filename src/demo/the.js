@@ -12,7 +12,11 @@ myApp.config(['$routeProvider', function($routeProvider) {
     controller: 'AdvancedCtrl'
   })
   .otherwise('/');
-}]);
+}]).run(function ($rootScope, $window) {
+  $rootScope.$on('$routeChangeSuccess', function () {
+    $window.scrollTo(0, 0);
+  });
+});
 
 // Inside your controller...
 myApp.controller('TheCtrl', function ($scope) {
