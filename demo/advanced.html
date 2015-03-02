@@ -23,6 +23,7 @@
       <button class="border-button play" ng-click="custom.player.playVideo()">play</button>
       <button class="border-button pause" ng-click="custom.player.pauseVideo()">pause</button>
     </div>
+    <p class="video-detail">on mobile devices, custom controls won't work until the video has been interacted with directly</p>
   </div>
 
   <div class="video-wrapper">
@@ -33,6 +34,7 @@
     <div class="controls">
       <button class="border-button toggle" ng-click="conditional.toggle()">{{conditional.visible ? 'hide' : 'autoplay'}} video</button>
     </div>
+    <p class="video-detail">autoplay won't work on mobile devices :(</p>
   </div>
 
   <div class="video-wrapper">
