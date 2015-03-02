@@ -1,5 +1,5 @@
 // Create your app with 'youtube-embed' dependency
-var myApp = angular.module('myApp', ['youtube-embed', 'ngRoute']);
+var myApp = angular.module('myApp', ['youtube-embed', 'ngRoute', 'hljs']);
 
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
