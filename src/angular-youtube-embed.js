@@ -82,22 +82,23 @@ angular.module('youtube-embed', ['ng'])
         return seconds + (minutes * 60);
     };
 
-    // Inject YouTube's iFrame API
-    (function () {
-        var tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }());
-
     Service.ready = false;
 
-    // Youtube callback when API is ready
-    $window.onYouTubeIframeAPIReady = function () {
+    function applyServiceIsReady() {
         $rootScope.$apply(function () {
             Service.ready = true;
         });
     };
+
+    // If the library isn't here at all,
+    if (!YT) {
+        // ...grab on to global callback, in case it's eventually loaded
+        $window.onYouTubeIframeAPIReady = applyServiceIsReady;
+    } else if (YT.loaded) {
+        Service.ready = true;
+    } else {
+        YT.ready(applyServiceIsReady);
+    }
 
     return Service;
 }])
