@@ -11,7 +11,8 @@ $ bower install --save angular-youtube-mb
 Sure! Let me show you.
 
 ```html
-<!-- Include the file -->
+<!-- Include YT library and this directive -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="angular-youtube-embed.js"></script>
 ```
 
