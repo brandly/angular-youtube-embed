@@ -185,13 +185,31 @@ angular.module('youtube-embed', ['ng'])
                 return player;
             }
 
-            function loadPlayer () {
-                if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && scope.player.d &&
-                        typeof scope.player.destroy === 'function') {
-                        scope.player.destroy();
-                    }
+            function isEmpty (obj) {
+                if (obj == null) return true;
+                if (Object.keys) return Object.keys(obj).length == 0;
+                var keys = [];
+                for (var key in obj) if (_.has(obj, key)) keys.push(key);
+                return keys.length == 0;
+            };
 
+            function loadPlayer () {
+                if (scope.player && !isEmpty(scope.player)) {
+                    var playerVars = ( playerVars ? playerVars : angular.copy(scope.playerVars) );
+                    playerVars.start = playerVars.start || scope.urlStartTime;
+
+                    if (scope.videoId) {
+                        scope.player.loadVideoById({
+                            videoId: scope.videoId,
+                            startSeconds: playerVars.start,
+                        });
+                    } else if (scope.playerVars.list) {
+                        scope.player.loadPlaylist({
+                            playlist: scope.playerVars.list,
+                            startSeconds: playerVars.start,
+                        });
+                    }
+                } else {
                     scope.player = createPlayer();
                 }
             };
