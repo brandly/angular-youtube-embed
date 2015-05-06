@@ -69,4 +69,17 @@ myApp.controller('AdvancedCtrl', function ($scope) {
             list: 'PLISo53ifQd_iBPpybJay-SCAULHsoRicc'
         }
     };
+
+    var first = 'biZLZZFb468';
+    var second = 'lbVdyPZiOLM';
+    $scope.dynamic = {
+        video: first,
+        change: function () {
+            if ($scope.dynamic.video === first) {
+                $scope.dynamic.video = second;
+            } else {
+                $scope.dynamic.video = first;
+            }
+        }
+    };
 });
