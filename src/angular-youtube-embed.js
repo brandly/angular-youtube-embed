@@ -187,8 +187,7 @@ angular.module('youtube-embed', ['ng'])
 
             function loadPlayer () {
                 if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && scope.player.d &&
-                        typeof scope.player.destroy === 'function') {
+                    if (scope.player && typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
                     }
 
