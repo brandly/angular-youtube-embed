@@ -22,3 +22,13 @@ describe 'getIdFromURL', ->
         url = 'https://www.youtube.com/watch?v=VbNF9X1waSc&amp;feature=youtu.be'
         id = 'VbNF9X1waSc'
         expect(getIdFromURL(url)).toBe id
+
+    it 'should handle http://youtu.be', ->
+        url = 'https://youtu.be/3FY4MRdQOdE'
+        id = '3FY4MRdQOdE'
+        expect(getIdFromURL(url)).toBe id
+
+    it 'should handle "edit" links from video manager page', ->
+        url = 'https://www.youtube.com/edit?o=U&video_id=3k2ZBu3kuiE'
+        id = '3k2ZBu3kuiE'
+        expect(getIdFromURL(url)).toBe id
