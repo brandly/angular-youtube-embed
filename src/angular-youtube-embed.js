@@ -184,10 +184,18 @@ angular.module('youtube-embed', ['ng'])
                 player.id = playerId;
                 return player;
             }
+            
+            function isEmpty (obj) {
+                if (obj == null) return true;
+                if (Object.keys) return Object.keys(obj).length == 0;
+                var keys = [];
+                for (var key in obj) if (_.has(obj, key)) keys.push(key);
+                return keys.length == 0;
+            };
 
             function loadPlayer () {
                 // If present, use an existing player
-                if(scope.player && scope.player.getIframe()) {
+                if(scope.player && !isEmpty(scope.player) && scope.player.getIframe()) {
                     var playerVars = ( playerVars ? playerVars : angular.copy(scope.playerVars) );
                     playerVars.start = playerVars.start || scope.urlStartTime;
                     playerVars.end = playerVars.end || scope.urlEndTime;
