@@ -1,3 +1,7 @@
+if (!angular && require){
+    var angular = require('angular');
+}
+
 /* global YT */
 angular.module('youtube-embed', ['ng'])
 .service ('youtubeEmbedUtils', ['$window', '$rootScope', function ($window, $rootScope) {

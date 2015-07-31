@@ -48,6 +48,20 @@ $scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 <youtube-video video-url="anotherGoodOne"></youtube-video>
 ```
 
+## what about browserify?
+
+If you are using browserify, you can install it like this:
+
+```shell
+npm install angular-youtube-mb
+```
+
+and use it in your code like this:
+
+```javascript
+require('angular-youtube-mb');
+```
+
 ## Is that it?
 
 Not quite!
