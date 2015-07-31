@@ -6,6 +6,12 @@
 $ bower install --save angular-youtube-mb
 ```
 
+or
+
+```shell
+$ npm install --save angular-youtube-mb
+```
+
 ## Can I use it?
 
 Sure! Let me show you.
@@ -48,12 +54,12 @@ $scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 <youtube-video video-url="anotherGoodOne"></youtube-video>
 ```
 
-## what about browserify?
+## What about browserify?
 
-If you are using browserify, you can install it like this:
+If you are using browserify or webpack, make sure you've installed this module:
 
 ```shell
-npm install angular-youtube-mb
+$ npm install --save angular-youtube-mb
 ```
 
 and use it in your code like this:
@@ -197,6 +203,7 @@ Check out [the demo](http://brandly.github.io/angular-youtube-embed) and [the co
 First, make sure you have the necessary dependencies installed locally and [gulp](http://gulpjs.com/) installed globally
 ```shell
 $ npm install
+$ bower install
 $ npm install --global gulp
 ```
 
