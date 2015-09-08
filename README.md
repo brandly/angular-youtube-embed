@@ -3,13 +3,13 @@
 > Embed a YouTube player with a simple directive.
 
 ```shell
-$ bower install --save angular-youtube-mb
+$ npm install --save angular-youtube-embed
 ```
 
 or
 
 ```shell
-$ npm install --save angular-youtube-mb
+$ bower install --save angular-youtube-mb
 ```
 
 ## Can I use it?
