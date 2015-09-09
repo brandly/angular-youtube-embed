@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "author": "Matthew Brandly",
   "license": "MIT",
-  "main": "src/angular-youtube-embed.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/brandly/angular-youtube-embed.git"
