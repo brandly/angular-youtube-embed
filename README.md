@@ -6,12 +6,6 @@
 $ npm install --save angular-youtube-embed
 ```
 
-or
-
-```shell
-$ bower install --save angular-youtube-mb
-```
-
 ## Can I use it?
 
 Sure! Let me show you.
@@ -59,7 +53,7 @@ $scope.anotherGoodOne = 'https://www.youtube.com/watch?v=18-xvIjH8T4';
 If you are using browserify or webpack, make sure you've installed this module:
 
 ```shell
-$ npm install --save angular-youtube-mb
+$ npm install --save angular-youtube-embed
 ```
 
 and use it in your code like this:
