@@ -62,7 +62,7 @@ angular.module('youtube-embed', ['ng'])
             seconds = times[2];
 
         // t=4m20s
-        if (typeof seconds !== 'undefined') {
+        if (seconds) {
             seconds = parseInt(seconds, 10);
             minutes = parseInt(minutes, 10);
 
@@ -91,7 +91,7 @@ angular.module('youtube-embed', ['ng'])
     };
 
     // If the library isn't here at all,
-    if (typeof YT === "undefined") {
+    if (!YT) {
         // ...grab on to global callback, in case it's eventually loaded
         $window.onYouTubeIframeAPIReady = applyServiceIsReady;
     } else if (YT.loaded) {
@@ -108,11 +108,11 @@ angular.module('youtube-embed', ['ng'])
     // from YT.PlayerState
     var stateNames = {
         '-1': 'unstarted',
-        0: 'ended',
-        1: 'playing',
-        2: 'paused',
-        3: 'buffering',
-        5: 'queued'
+        '0': 'ended',
+        '1': 'playing',
+        '2': 'paused',
+        '3': 'buffering',
+        '5': 'queued'
     };
 
     var eventPrefix = 'youtube.player.';
@@ -150,7 +150,7 @@ angular.module('youtube-embed', ['ng'])
 
             function onPlayerStateChange (event) {
                 var state = stateNames[event.data];
-                if (typeof state !== 'undefined') {
+                if (state) {
                     applyBroadcast(eventPrefix + state, scope.player, event);
                 }
                 scope.$apply(function () {
@@ -187,7 +187,7 @@ angular.module('youtube-embed', ['ng'])
 
             function loadPlayer () {
                 if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && typeof scope.player.destroy === 'function') {
+                    if (scope.hasOwnProperty('player') && scope.player.hasOwnProperty('destroy')) {
                         scope.player.destroy();
                     }
 
@@ -199,16 +199,16 @@ angular.module('youtube-embed', ['ng'])
                 function () {
                     return scope.utils.ready
                         // Wait until one of them is defined...
-                        && (typeof scope.videoUrl !== 'undefined'
-                        ||  typeof scope.videoId !== 'undefined'
-                        ||  typeof scope.playerVars.list !== 'undefined');
+                        && (scope.videoUrl 
+                        ||  scope.videoId 
+                        ||  scope.playerVars.list);
                 },
                 function (ready) {
                     if (ready) {
                         stopWatchingReady();
 
                         // URL takes first priority
-                        if (typeof scope.videoUrl !== 'undefined') {
+                        if (scope.videoUrl) {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
                                 scope.urlStartTime = scope.utils.getTimeFromURL(url);
@@ -217,7 +217,7 @@ angular.module('youtube-embed', ['ng'])
                             });
 
                         // then, a video ID
-                        } else if (typeof scope.videoId !== 'undefined') {
+                        } else if (scope.videoId) {
                             scope.$watch('videoId', function () {
                                 scope.urlStartTime = null;
                                 loadPlayer();
