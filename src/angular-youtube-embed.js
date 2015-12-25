@@ -94,6 +94,27 @@ angular.module('youtube-embed', ['ng'])
     if (typeof YT === "undefined") {
         // ...grab on to global callback, in case it's eventually loaded
         $window.onYouTubeIframeAPIReady = applyServiceIsReady;
+
+        //if there's no script to the youtube's iframe library
+        var apiScriptUrl = "https://www.youtube.com/iframe_api";
+        var loadAsync = true;
+        var scriptsInDocument = document.getElementsByTagName("script");
+        for (var i = 0; i<scriptsInDocument.length; i++)
+        {
+          if(scriptsInDocument[i].src === apiScriptUrl )
+          {
+            loadAsync = false;
+            break;
+          }
+        }
+        //... it is loaded
+        if(loadAsync)
+        {
+          var tag = document.createElement('script');
+          tag.src = apiScriptUrl;
+          var scriptTagArea = document.getElementsByTagName('script')[0];
+          scriptTagArea.parentNode.insertBefore(tag, scriptTagArea);
+        }
     } else if (YT.loaded) {
         Service.ready = true;
     } else {
