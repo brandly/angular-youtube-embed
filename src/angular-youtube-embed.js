@@ -102,7 +102,7 @@ angular.module('youtube-embed', ['ng'])
 
     return Service;
 }])
-.directive('youtubeVideo', ['youtubeEmbedUtils', function (youtubeEmbedUtils) {
+.directive('youtubeVideo', ['$window', 'youtubeEmbedUtils', function ($window, youtubeEmbedUtils) {
     var uniqId = 1;
 
     // from YT.PlayerState
@@ -116,6 +116,10 @@ angular.module('youtube-embed', ['ng'])
     };
 
     var eventPrefix = 'youtube.player.';
+
+    $window.YTConfig = {
+        host: 'https://www.youtube.com'
+    };
 
     return {
         restrict: 'EA',
