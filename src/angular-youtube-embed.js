@@ -112,7 +112,7 @@ angular.module('youtube-embed', ['ng'])
         1: 'playing',
         2: 'paused',
         3: 'buffering',
-        5: 'queued'
+        5: 'cued'
     };
 
     var eventPrefix = 'youtube.player.';
