@@ -1,5 +1,5 @@
 /* global YT */
-angular.module('youtube-embed', ['ng'])
+angular.module('youtube-embed', [])
 .service ('youtubeEmbedUtils', ['$window', '$rootScope', function ($window, $rootScope) {
     var Service = {}
 
