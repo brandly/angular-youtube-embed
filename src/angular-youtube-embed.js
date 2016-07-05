@@ -94,6 +94,7 @@ angular.module('youtube-embed', [])
     if (typeof YT === "undefined") {
         // ...grab on to global callback, in case it's eventually loaded
         $window.onYouTubeIframeAPIReady = applyServiceIsReady;
+        console.log('Unable to find YouTube iframe library on this page.')
     } else if (YT.loaded) {
         Service.ready = true;
     } else {
