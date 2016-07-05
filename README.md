@@ -6,6 +6,12 @@
 $ npm install --save angular-youtube-embed
 ```
 
+or
+
+```shell
+$ bower install --save angular-youtube-mb
+```
+
 ## Can I use it?
 
 Sure! Let me show you.
@@ -59,7 +65,7 @@ $ npm install --save angular-youtube-embed
 and use it in your code like this:
 
 ```javascript
-require('angular-youtube-mb');
+require('angular-youtube-embed');
 ```
 
 ## Is that it?
