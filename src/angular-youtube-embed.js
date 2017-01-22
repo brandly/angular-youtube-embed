@@ -220,9 +220,9 @@ angular.module('youtube-embed', [])
                 function () {
                     return scope.playerReady
                         // Wait until one of them is defined...
-                        && (typeof scope.videoUrl !== 'undefined'
-                        ||  typeof scope.videoId !== 'undefined'
-                        ||  typeof scope.playerVars.list !== 'undefined');
+                        && (isExist(scope.videoUrl)
+                        ||  isExist(scope.videoId)
+                        ||  isExist(scope.playerVars.list));
                 },
                 function (ready) {
                     if (ready) {
