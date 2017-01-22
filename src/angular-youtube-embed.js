@@ -144,6 +144,7 @@ angular.module('youtube-embed', [])
             scope.playerHeight = scope.playerHeight || 390;
             scope.playerWidth = scope.playerWidth || 640;
             scope.playerVars = scope.playerVars || {};
+            scope.playerReady = false
 
             // YT calls callbacks outside of digest cycle
             function applyBroadcast () {
@@ -164,6 +165,7 @@ angular.module('youtube-embed', [])
             }
 
             function onPlayerReady (event) {
+                scope.playerReady = true
                 applyBroadcast(eventPrefix + 'ready', scope.player, event);
             }
 
@@ -177,7 +179,6 @@ angular.module('youtube-embed', [])
                 var player = new YT.Player(playerId, {
                     height: scope.playerHeight,
                     width: scope.playerWidth,
-                    videoId: scope.videoId,
                     playerVars: playerVars,
                     events: {
                         onReady: onPlayerReady,
@@ -190,19 +191,34 @@ angular.module('youtube-embed', [])
                 return player;
             }
 
-            function loadPlayer () {
-                if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && typeof scope.player.destroy === 'function') {
-                        scope.player.destroy();
-                    }
-
-                    scope.player = createPlayer();
+            function isExist (obj) {
+                if (obj == undefined || obj == null) {
+                    return false
                 }
+                else {
+                    return true
+                }
+            }
+
+            function loadPlayer () {
+                if (scope.player && typeof scope.player.destroy === 'function') {
+                    scope.player.destroy();
+                }
+
+                scope.player = createPlayer();
             };
+
+            scope.$watch(function () {
+                return scope.utils.ready;
+            }, function (ready) {
+                if (ready && !isExist(scope.player)) {
+                    loadPlayer()
+                }
+            });
 
             var stopWatchingReady = scope.$watch(
                 function () {
-                    return scope.utils.ready
+                    return scope.playerReady
                         // Wait until one of them is defined...
                         && (typeof scope.videoUrl !== 'undefined'
                         ||  typeof scope.videoId !== 'undefined'
@@ -213,27 +229,28 @@ angular.module('youtube-embed', [])
                         stopWatchingReady();
 
                         // URL takes first priority
-                        if (typeof scope.videoUrl !== 'undefined') {
+                        if (isExist(scope.videoUrl)) {
                             scope.$watch('videoUrl', function (url) {
                                 scope.videoId = scope.utils.getIdFromURL(url);
                                 scope.urlStartTime = scope.utils.getTimeFromURL(url);
 
-                                loadPlayer();
+                                scope.player.loadVideoByUrl(url);
                             });
 
                         // then, a video ID
-                        } else if (typeof scope.videoId !== 'undefined') {
-                            scope.$watch('videoId', function () {
-                                scope.urlStartTime = null;
-                                loadPlayer();
+                        } else if (isExist(scope.videoId)) {
+                            scope.$watch('videoId', function (id) {
+                                scope.player.loadVideoById(id);
                             });
 
+
                         // finally, a list
-                        } else {
+                        } else if (isExist(scope.playerVars.list)){
                             scope.$watch('playerVars.list', function () {
-                                scope.urlStartTime = null;
-                                loadPlayer();
+                                scope.player.loadPlaylist(scope.playerVars.list);
                             });
+                        } else {
+                          scope.player.stopVideo()
                         }
                     }
             });
