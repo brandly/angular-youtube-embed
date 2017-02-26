@@ -70,6 +70,21 @@ myApp.controller('AdvancedCtrl', function ($scope) {
         }
     };
 
+    var firstPlaylist = 'PLISo53ifQd_iBPpybJay-SCAULHsoRicc';
+    var secondPlaylist = 'PLfKJ52Aom315E9RXmLkXeD3yS7rsIAgpQ'
+    $scope.dynamicPlaylist = {
+        vars: {
+            list: firstPlaylist
+        },
+        change: function () {
+          if ($scope.dynamicPlaylist.vars.list === firstPlaylist) {
+              $scope.dynamicPlaylist.vars.list = secondPlaylist;
+          } else {
+              $scope.dynamicPlaylist.vars.list = firstPlaylist;
+          }
+        }
+    };
+
     var first = 'biZLZZFb468';
     var second = 'lbVdyPZiOLM';
     $scope.dynamic = {

@@ -194,7 +194,10 @@ angular.module('youtube-embed', [])
                 if (scope.videoId || scope.playerVars.list) {
                     if (scope.player) {
                         // player already exists do not replace instead use old player
-                        scope.player.loadVideoById(scope.videoId, 0, 'default');
+                        if(scope.playerVars.list)
+                          scope.player.loadPlaylist({ list: scope.playerVars.list, index: 0, suggestedQuality: "default"});
+                        else
+                          scope.player.loadVideoById(scope.videoId, 0, 'default');
                     } else {
                         scope.player = createPlayer();
                     }
