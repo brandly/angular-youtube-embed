@@ -192,11 +192,20 @@ angular.module('youtube-embed', [])
 
             function loadPlayer () {
                 if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && typeof scope.player.destroy === 'function') {
-                        scope.player.destroy();
+                    if (!scope.player) {
+                        scope.player = createPlayer();
+                        return;
                     }
 
-                    scope.player = createPlayer();
+                    if (scope.videoId) {
+                        scope.player.loadVideoById(scope.videoId);
+                    } else if (scope.playerVars.list) {
+                        /* Find a better way to do this perhaps ? */
+                        scope.player.loadPlaylist({
+                            list: scope.playerVars.list,
+                            index: scope.playerVars.index
+                        });
+                    }
                 }
             };
 
