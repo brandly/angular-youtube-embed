@@ -179,13 +179,12 @@ angular.module('youtube-embed', [])
                     height: scope.playerHeight,
                     width: scope.playerWidth,
                     videoId: scope.videoId,
-                    playerVars: playerVars,
-                    events: {
-                        onReady: onPlayerReady,
-                        onStateChange: onPlayerStateChange,
-                        onError: onPlayerError
-                    }
+                    playerVars: playerVars
                 });
+                
+                player.addEventListener('onReady',onPlayerReady);
+                player.addEventListener('onStateChange',onPlayerStateChange);
+                player.addEventListener('onError',onPlayerError);
 
                 player.id = playerId;
                 return player;
@@ -247,6 +246,8 @@ angular.module('youtube-embed', [])
 
             scope.$on('$destroy', function () {
                 scope.player && scope.player.destroy();
+                element.remove();
+                element = null;
             });
         }
     };
