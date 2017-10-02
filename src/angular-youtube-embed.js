@@ -174,7 +174,7 @@ angular.module('youtube-embed', [])
             function createPlayer () {
                 var playerVars = angular.copy(scope.playerVars);
                 playerVars.start = playerVars.start || scope.urlStartTime;
-                /* TODO: REMOVE EVENTS - THE SCOPE IS TOOOOOO LARGE AND CREATING A MEMORY LEAK */
+
                 var player = new YT.Player(playerId, {
                     height: scope.playerHeight,
                     width: scope.playerWidth,
