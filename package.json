@@ -14,7 +14,7 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "angular": ""
+    "angular": "1.5.11"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1",
