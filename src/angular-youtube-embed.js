@@ -186,7 +186,7 @@ angular.module('youtube-embed', [])
                     }
                 });
 
-                player.id = playerId;
+                
                 return player;
             }
 
