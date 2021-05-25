@@ -21,15 +21,15 @@
     "coffee-script": "^1.7.1",
     "express": "^4.8.2",
     "gh-pages": "3.2.0",
-    "gulp": "^3.6.2",
-    "gulp-header": "^1.2.2",
-    "gulp-karma": "0.0.4",
-    "gulp-rename": "^1.2.0",
-    "gulp-uglify": "^0.3.0",
+    "gulp": "4.0.2",
+    "gulp-header": "2.0.9",
+    "gulp-karma": "0.0.5",
+    "gulp-rename": "2.0.0",
+    "gulp-uglify": "3.0.2",
     "gulp-util": "^3.0.0",
-    "karma": "^0.12.16",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-coffee-preprocessor": "^0.2.1",
-    "karma-jasmine": "^0.1.5"
+    "karma": "6.3.2",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-coffee-preprocessor": "1.0.1",
+    "karma-jasmine": "4.0.1"
   }
 }
