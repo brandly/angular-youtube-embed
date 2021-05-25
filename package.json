@@ -11,7 +11,8 @@
   "homepage": "http://brandly.github.io/angular-youtube-embed/",
   "scripts": {
     "start": "gulp",
-    "test": "gulp test"
+    "test": "gulp test",
+    "gh": "gh-pages --dist src/"
   },
   "dependencies": {
     "angular": ""
@@ -19,6 +20,7 @@
   "devDependencies": {
     "coffee-script": "^1.7.1",
     "express": "^4.8.2",
+    "gh-pages": "3.2.0",
     "gulp": "^3.6.2",
     "gulp-header": "^1.2.2",
     "gulp-karma": "0.0.4",

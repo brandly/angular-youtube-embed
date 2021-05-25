@@ -32,11 +32,6 @@ gulp.task('test', function () {
     }));
 });
 
-gulp.task('gh', function () {
-    gulp.src('src/**/*')
-    .pipe(gulp.dest('gh-pages'));
-});
-
 gulp.task('dist', function () {
     gulp.src('src/angular-youtube-embed.js')
         .pipe(uglify())
