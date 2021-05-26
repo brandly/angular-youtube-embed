@@ -189,13 +189,44 @@ angular.module('youtube-embed', [])
                 
                 return player;
             }
+            
+            function isEmpty (obj) {
+                if (obj == null) return true;
+                if (Object.keys) return Object.keys(obj).length == 0;
+                var keys = [];
+                for (var key in obj) if (_.has(obj, key)) keys.push(key);
+                return keys.length == 0;
+            };
 
             function loadPlayer () {
-                if (scope.videoId || scope.playerVars.list) {
+                // If present, use an existing player
+                if(scope.player && !isEmpty(scope.player) && scope.player.getIframe() && scope.player.cueVideoById === 'function') {
+                    var playerVars = ( playerVars ? playerVars : angular.copy(scope.playerVars) );
+                    playerVars.start = playerVars.start || scope.urlStartTime;
+                    playerVars.end = playerVars.end || scope.urlEndTime;
+
+                    // Use cueVideoById() instead of loadVideoById() so the video doesn't
+                    // start to play automatically.
+                    if (scope.videoId) {
+                        scope.player.cueVideoById({
+                            videoId:scope.videoId,
+                            startSeconds:playerVars.start,
+                            endSeconds:playerVars.end
+                        });
+                    }
+                    else if(scope.playerVars.list) {
+                        scope.player.cuePlaylist({
+                            playlist:scope.playerVars.list,
+                            startSeconds:playerVars.start,
+                            endSeconds:playerVars.end
+                        });
+                    }
+                }
+                // Otherwise, create a new player
+                else if(scope.videoId || scope.playerVars.list) {
                     if (scope.player && typeof scope.player.destroy === 'function') {
                         scope.player.destroy();
                     }
-
                     scope.player = createPlayer();
                 }
             };
