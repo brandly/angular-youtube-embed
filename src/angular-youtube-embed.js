@@ -192,11 +192,15 @@ angular.module('youtube-embed', [])
 
             function loadPlayer () {
                 if (scope.videoId || scope.playerVars.list) {
-                    if (scope.player && typeof scope.player.destroy === 'function') {
-                        scope.player.destroy();
+                    if (scope.player) {
+                        // player already exists do not replace instead use old player
+                        if(scope.playerVars.list)
+                          scope.player.loadPlaylist({ list: scope.playerVars.list, index: 0, suggestedQuality: "default"});
+                        else
+                          scope.player.loadVideoById(scope.videoId, 0, 'default');
+                    } else {
+                        scope.player = createPlayer();
                     }
-
-                    scope.player = createPlayer();
                 }
             };
 

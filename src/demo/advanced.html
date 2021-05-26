@@ -45,6 +45,16 @@
   </div>
 
   <div class="video-wrapper">
+    <h3>dynamic playlist id</h3>
+    <div class="embed-responsive embed-responsive-16by9">
+      <youtube-video class="embed-responsive-item" player-vars="dynamicPlaylist.vars"></youtube-video>
+    </div>
+    <div class="controls">
+      <button class="border-button toggle" ng-click="dynamicPlaylist.change()">change playlist</button>
+    </div>
+  </div>
+
+  <div class="video-wrapper">
     <h3>dynamic video id</h3>
     <div class="embed-responsive embed-responsive-16by9">
       <youtube-video class="embed-responsive-item" video-id="dynamic.video"></youtube-video>
