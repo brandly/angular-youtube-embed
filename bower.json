@@ -12,6 +12,9 @@
   "license": "MIT",
   "homepage": "https://github.com/brandly/angular-youtube-embed",
   "main": "src/angular-youtube-embed.js",
+  "dependencies": {
+    "angular": "~1.2.22"
+  },
   "devDependencies": {
     "angular": "~1.2.22",
     "lodash": "~2.4.1",
