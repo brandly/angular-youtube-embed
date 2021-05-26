@@ -164,6 +164,28 @@ angular.module('youtube-embed', [])
             }
 
             function onPlayerReady (event) {
+                
+                // Youtube's play button didn't work in hybrid apps created using cordova.
+                // This is a workaround based on this question from stackoverflow:
+                // http://stackoverflow.com/questions/26155372/youtube-iframe-phonegap-touching-tapping-the-red-play-button-the-video-doesn/
+                var iframes = document.getElementsByTagName('iframe');
+                var content;
+                var buttons;
+                
+                for (var i = 0; i < iframes.length; i++) {
+                    
+                    content = iframes[i].contentDocument;
+                    buttons = content && content.getElementsByClassName('ytp-large-play-button');
+                    
+                    if (buttons) {
+                        for (var j = 0; j < buttons.length; j++) {
+                            
+                            buttons[j].addEventListener('click', function() { scope.player.playVideo(); }, false);
+                            
+                        }
+                    }
+                }
+                
                 applyBroadcast(eventPrefix + 'ready', scope.player, event);
             }
 
