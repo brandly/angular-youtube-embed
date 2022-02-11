@@ -27,7 +27,7 @@
     "gulp-rename": "2.0.0",
     "gulp-uglify": "3.0.2",
     "gulp-util": "^3.0.0",
-    "karma": "6.3.2",
+    "karma": "6.3.14",
     "karma-chrome-launcher": "3.1.0",
     "karma-coffee-preprocessor": "1.0.1",
     "karma-jasmine": "4.0.1"
